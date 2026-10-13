@@ -2,7 +2,7 @@
 
 Turn a podcast transcript or recording into an interactive companion: a structured **overview**, **chapters** you can jump between, a **quiz** whose answers are checked against the source, and an **"ask the episode"** box that refuses to answer what the episode doesn't cover.
 
-**Live app:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) &nbsp;|&nbsp; **Video Walkthrough:** [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA) &nbsp;|&nbsp; **Research Paper:** [RESEARCH.pdf](RESEARCH.pdf) / [RESEARCH.docx](RESEARCH.docx) &nbsp;|&nbsp; AI Engineering Project.
+**Live app:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) &nbsp;|&nbsp; **Video Walkthrough:** [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA) &nbsp;|&nbsp; **Research Paper:** [RESEARCH.pdf](RESEARCH.pdf) &nbsp;|&nbsp; AI Engineering Project.
 
 ## What it does
 
@@ -84,7 +84,7 @@ This section explains how each of the 10 core tasks and evaluation areas defined
 ### Task 01: Research & Context Analysis
 - **Challenge Requirement:** Conduct in-depth research exploring user value, listener personas, practical API comparisons (LLMs, Speech-to-Text, and cloud hosting), reliability strategies, practical operating constraints, and responsible API usage through an OWASP API Security lens.
 - **How It Was Followed & Implemented:**
-  - **Comprehensive Research Report:** Documented and exported as standalone styled documents: **[`RESEARCH.pdf`](RESEARCH.pdf)** and **[`RESEARCH.docx`](RESEARCH.docx)**.
+  - **Comprehensive Research Report:** Documented and exported as a standalone styled document: **[`RESEARCH.pdf`](RESEARCH.pdf)**.
   - **User Personas & Pain Points:** Identified key learner profiles (retention learners, time-constrained executives, accessibility-focused listeners, podcast educators). Solved the core listener problem: *"Where did they say that, and can I trust this?"* through passage-level citations rather than superficial ungrounded summaries.
   - **LLM Trade-Off Matrix:** Evaluated Google Gemini Flash/Flash-Lite (~1M context, native JSON, free tier), Groq `openai/gpt-oss-120b` (sub-2s inference, 8K TPM free tier ceiling), Hugging Face Inference Providers (fallback router), and local Ollama/llama.cpp (rejected due to 512MB RAM free-tier host limits).
   - **Speech-to-Text Evaluation:** Benchmarked Groq Whisper (`whisper-large-v3-turbo` and `large-v3` with segment timestamps via `verbose_json`) vs. Gemini native audio understanding vs. OpenAI paid Whisper. Designed an automated 16 kHz mono transcoding and 20-minute chunking pipeline to conquer Groq's 25 MB upload limit.
@@ -169,7 +169,7 @@ The challenge specification details 6 mandatory functional requirements:
   1. **Working, Deployed Application:** Live at [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com).
   2. **Public Git Repository:** Hosted at [moazzem-hossain-majumder/Podcast-Companion](https://github.com/moazzem-hossain-majumder/Podcast-Companion).
   3. **Demonstration Video:** Published on YouTube: [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA).
-  4. **Research Document:** Compiled into **[`RESEARCH.pdf`](RESEARCH.pdf)** & **[`RESEARCH.docx`](RESEARCH.docx)**.
+  4. **Research Document:** Compiled into **[`RESEARCH.pdf`](RESEARCH.pdf)**.
   5. **Engineering Notes:** Complete technical log in [`docs/ENGINEERING.md`](docs/ENGINEERING.md).
   6. **Three Prioritized Next Steps:** Fully detailed in README (Faithfulness Harness, Durable Persistence, Hierarchical Summarization & SSE).
 
@@ -212,7 +212,7 @@ The challenge specification details 6 mandatory functional requirements:
 - **Verification Checklist:**
   - [x] **Live Application Accessible:** Running on Render at https://podcast-companion.onrender.com.
   - [x] **Public Git Repository:** Clean, organized repository with active commit history.
-  - [x] **Research Document & Formats:** `RESEARCH.pdf` and `RESEARCH.docx` complete with sources and API analysis.
+  - [x] **Research Document:** `RESEARCH.pdf` complete with sources and API analysis.
   - [x] **Engineering Notes:** `docs/ENGINEERING.md` with architecture diagrams and 3 debugging case studies.
   - [x] **Automated Test Suite:** 135 unit and integration tests passing (`pytest -q`).
   - [x] **26 Visual Verification Screenshots:** All test cases documented with dark-mode screenshots in README.
@@ -583,7 +583,7 @@ app/
 tests/           pytest suite + jsdom UI test + fake-LLM server
 scripts/         check_providers.py (verify keys/models), smoke_live.py (verify deployment),
                  make_samples.py + sample_episode.py (rebuild the sample files; needs espeak-ng + ffmpeg)
-docs/            ENGINEERING.md, CODE_TOUR.md, screenshots/
+docs/            ENGINEERING.md, screenshots/
 ```
 
-More: [Research Paper](RESEARCH.pdf) · [Engineering notes](docs/ENGINEERING.md) · [Test files](TEST_FILES.md) · [Code tour](docs/CODE_TOUR.md)
+More: [Research Paper](RESEARCH.pdf) · [Engineering notes](docs/ENGINEERING.md) · [Test files](TEST_FILES.md)
