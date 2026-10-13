@@ -15,7 +15,7 @@ Turn a podcast transcript or recording into an interactive companion: a structur
 | Meaningful revision | Every section has one-click presets ("Shorter", "Simpler language", "More challenging"...) and a free-text box. **Only that section is regenerated**; the rest is untouched. Undo restores the previous version. |
 | Usable result | Copy per section, copy all, download Markdown, download JSON. Accessible tabs, keyboard navigation, dark mode, mobile layout. |
 | Compare two models | Choose **Auto**, **Google Gemini** or **Groq** before building (and switch on the results page). The **Compare models** tab runs both on the same transcript, each pinned with no cross-fallback, and shows latency, validation re-asks, verified quiz questions and the outputs side by side, exportable as .md/.json. Audio can also be transcribed by Groq Whisper or Gemini. |
-| Sample inputs | Each input tab has a **Try a sample** row with one button per format it accepts: pasted text (plain, `[mm:ss]`), .txt, .md, .srt, .vtt, and mp3, m4a, mp4, wav, ogg, flac, webm, aac. All carry the same 11-minute episode and can be downloaded from `/samples/`. See [docs/TESTING.md](docs/TESTING.md). |
+| Sample inputs | Each input tab has a **Try a sample** row with one button per format it accepts: pasted text (plain, `[mm:ss]`), .txt, .md, .srt, .vtt, and mp3, m4a, mp4, wav, ogg, flac, webm, aac. All carry the same 11-minute episode and can be downloaded from `/samples/`. See [TEST_FILES.md](TEST_FILES.md). |
 
 ## How it stays trustworthy
 
@@ -47,15 +47,14 @@ uvicorn app.main:app --reload                          # open http://127.0.0.1:8
 | `GEMINI_API_KEY` | one LLM key required | Primary generation model ([get a free key](https://aistudio.google.com/apikey)) |
 | `GROQ_API_KEY` | recommended | Whisper audio transcription + fallback LLM ([console.groq.com/keys](https://console.groq.com/keys)) |
 | `HF_TOKEN` | optional | Third fallback LLM via Hugging Face Inference Providers |
-| `LLM_CHAIN` | optional | Model fallback order, e.g. `gemini:gemini-3.5-flash,groq:openai/gpt-oss-120b`. **Change this if a model is retired**; run `scripts/check_providers.py` to see which IDs your key can call. Vendor dates move (see [RESEARCH.md](docs/RESEARCH.md)). A provider that has a key but is missing here is still added at the end, so it stays selectable. |
+| `LLM_CHAIN` | optional | Model fallback order, e.g. `gemini:gemini-3.5-flash,groq:openai/gpt-oss-120b`. **Change this if a model is retired**; run `scripts/check_providers.py` to see which IDs your key can call. Vendor dates move (see [RESEARCH.pdf](RESEARCH.pdf)). A provider that has a key but is missing here is still added at the end, so it stays selectable. |
 | `MAX_AUDIO_MB`, `MAX_AUDIO_MINUTES`, `MAX_TRANSCRIPT_CHARS`, `RATE_LIMIT_PER_MINUTE` | optional | See `.env.example` |
 
 Without any key the app still starts and clearly reports that AI generation isn't configured.
 
 ## Tests
 
-**Real test files for every format:** [TEST_FILES.md](TEST_FILES.md), with a one-command download script (`scripts/download_test_files.ps1`).
-**Manual testing guide:** [docs/TESTING.md](docs/TESTING.md) has links to a test file in every format, how to compare Gemini and Groq, and a checklist for verifying the output yourself.
+**Real test files for every format:** [TEST_FILES.md](TEST_FILES.md), with a one-command download script (`scripts/download_test_files.ps1`). Manual testing steps and format checklists are also provided.
 
 ```bash
 pip install -r requirements-dev.txt
@@ -85,7 +84,7 @@ This section explains how each of the 10 core tasks and evaluation areas defined
 ### Task 01: Research & Context Analysis
 - **Challenge Requirement:** Conduct in-depth research exploring user value, listener personas, practical API comparisons (LLMs, Speech-to-Text, and cloud hosting), reliability strategies, practical operating constraints, and responsible API usage through an OWASP API Security lens.
 - **How It Was Followed & Implemented:**
-  - **Comprehensive Research Report:** Compiled into [`docs/RESEARCH.md`](docs/RESEARCH.md) and exported as standalone styled documents: **[`RESEARCH.pdf`](RESEARCH.pdf)** and **[`RESEARCH.docx`](RESEARCH.docx)**.
+  - **Comprehensive Research Report:** Documented and exported as standalone styled documents: **[`RESEARCH.pdf`](RESEARCH.pdf)** and **[`RESEARCH.docx`](RESEARCH.docx)**.
   - **User Personas & Pain Points:** Identified key learner profiles (retention learners, time-constrained executives, accessibility-focused listeners, podcast educators). Solved the core listener problem: *"Where did they say that, and can I trust this?"* through passage-level citations rather than superficial ungrounded summaries.
   - **LLM Trade-Off Matrix:** Evaluated Google Gemini Flash/Flash-Lite (~1M context, native JSON, free tier), Groq `openai/gpt-oss-120b` (sub-2s inference, 8K TPM free tier ceiling), Hugging Face Inference Providers (fallback router), and local Ollama/llama.cpp (rejected due to 512MB RAM free-tier host limits).
   - **Speech-to-Text Evaluation:** Benchmarked Groq Whisper (`whisper-large-v3-turbo` and `large-v3` with segment timestamps via `verbose_json`) vs. Gemini native audio understanding vs. OpenAI paid Whisper. Designed an automated 16 kHz mono transcoding and 20-minute chunking pipeline to conquer Groq's 25 MB upload limit.
@@ -169,8 +168,8 @@ The challenge specification details 6 mandatory functional requirements:
 - **How It Was Followed & Implemented:**
   1. **Working, Deployed Application:** Live at [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com).
   2. **Public Git Repository:** Hosted at [moazzem-hossain-majumder/Podcast-Companion](https://github.com/moazzem-hossain-majumder/Podcast-Companion).
-  3. **Demonstration Video:** Published on YouTube: [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA) &nbsp;|&nbsp; Teleprompter script in [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md).
-  4. **Research Document:** Documented in [`docs/RESEARCH.md`](docs/RESEARCH.md) and compiled into **[`RESEARCH.pdf`](RESEARCH.pdf)** & **[`RESEARCH.docx`](RESEARCH.docx)**.
+  3. **Demonstration Video:** Published on YouTube: [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA).
+  4. **Research Document:** Compiled into **[`RESEARCH.pdf`](RESEARCH.pdf)** & **[`RESEARCH.docx`](RESEARCH.docx)**.
   5. **Engineering Notes:** Complete technical log in [`docs/ENGINEERING.md`](docs/ENGINEERING.md).
   6. **Three Prioritized Next Steps:** Fully detailed in README (Faithfulness Harness, Durable Persistence, Hierarchical Summarization & SSE).
 
@@ -213,7 +212,7 @@ The challenge specification details 6 mandatory functional requirements:
 - **Verification Checklist:**
   - [x] **Live Application Accessible:** Running on Render at https://podcast-companion.onrender.com.
   - [x] **Public Git Repository:** Clean, organized repository with active commit history.
-  - [x] **Research Document & Formats:** `docs/RESEARCH.md`, `RESEARCH.pdf`, and `RESEARCH.docx` complete with sources and API analysis.
+  - [x] **Research Document & Formats:** `RESEARCH.pdf` and `RESEARCH.docx` complete with sources and API analysis.
   - [x] **Engineering Notes:** `docs/ENGINEERING.md` with architecture diagrams and 3 debugging case studies.
   - [x] **Automated Test Suite:** 135 unit and integration tests passing (`pytest -q`).
   - [x] **26 Visual Verification Screenshots:** All test cases documented with dark-mode screenshots in README.
@@ -546,7 +545,7 @@ Per the challenge deliverables specification, here are the three most important 
 
 ## Deploy (free, no credit card)
 
-Hosted on **Render's free web service** (see [docs/RESEARCH.md](docs/RESEARCH.md) for why not Vercel or Hugging Face Spaces).
+Hosted on **Render's free web service** (see [RESEARCH.pdf](RESEARCH.pdf) for why not Vercel or Hugging Face Spaces).
 
 1. Push this repo to GitHub (it contains no secrets; `.env` is git-ignored).
 2. Render dashboard → **New → Blueprint** → select the repo (uses `render.yaml`), or **New → Web Service** with build `pip install -r requirements.txt` and start `uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips='*'`.
@@ -562,7 +561,7 @@ A `Dockerfile` is included for any other host.
 - **Free instance is tiny** (512 MB RAM, 0.1 vCPU): files over 24 MB are compressed with ffmpeg, which is slow there (minutes for a long episode). Compression only runs for large files.
 - **State is in memory**: transcription jobs (30 min TTL) and rate-limit counters are lost on restart and aren't shared across instances. Results themselves live in the browser, so a refresh loses them (download them first).
 - **Plain text has no timestamps** by definition; the app says so rather than guess. Timestamps are segment-level (about 5-45 s), not word-level.
-- **Fallback models handle shorter transcripts only** (≈24k characters) because Groq/HF free tiers have small per-minute token budgets. Long episodes rely on Gemini. Groq's free tier (8K tokens/min) fits about 1-2 sections of an 11-minute episode per minute, so the server waits out short cooldowns (up to 60 s) rather than failing; see the measured comparison in [docs/RESEARCH.md §6](docs/RESEARCH.md).
+- **Fallback models handle shorter transcripts only** (≈24k characters) because Groq/HF free tiers have small per-minute token budgets. Long episodes rely on Gemini. Groq's free tier (8K tokens/min) fits about 1-2 sections of an 11-minute episode per minute, so the server waits out short cooldowns (up to 60 s) rather than failing; see the measured comparison in [RESEARCH.pdf §5](RESEARCH.pdf).
 - **Verification proves a quote exists in the transcript, not that the reasoning on top of it is right.** Summaries are cited but not claim-by-claim checked (see next steps).
 - **Privacy:** content is sent to Google Gemini and Groq. Free tiers may use submitted content for product improvement, so don't submit confidential material. The app says this before upload.
 - Quality on non-English audio depends on Whisper/Gemini; the UI lets you set the spoken language.
@@ -584,7 +583,7 @@ app/
 tests/           pytest suite + jsdom UI test + fake-LLM server
 scripts/         check_providers.py (verify keys/models), smoke_live.py (verify deployment),
                  make_samples.py + sample_episode.py (rebuild the sample files; needs espeak-ng + ffmpeg)
-docs/            RESEARCH.md, ENGINEERING.md, DEMO_SCRIPT.md, CODE_TOUR.md, TESTING.md
+docs/            ENGINEERING.md, CODE_TOUR.md, screenshots/
 ```
 
-More: [Research & comparison](docs/RESEARCH.md) · [Engineering notes](docs/ENGINEERING.md) · [Testing guide](docs/TESTING.md) · [Demo script](docs/DEMO_SCRIPT.md) · [Code tour](docs/CODE_TOUR.md)
+More: [Research Paper](RESEARCH.pdf) · [Engineering notes](docs/ENGINEERING.md) · [Test files](TEST_FILES.md) · [Code tour](docs/CODE_TOUR.md)

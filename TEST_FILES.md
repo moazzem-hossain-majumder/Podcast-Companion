@@ -78,7 +78,7 @@ The app's own sample episode (11 minutes, 1,770 words) is in every format under 
 
 where `<ext>` is one of `txt`, `md`, `srt`, `vtt`, `mp3`, `m4a`, `mp4`, `wav`, `ogg`, `flac`, `webm`, `aac` (plus `episode-timestamped.txt`). Locally: `http://127.0.0.1:8000/samples/episode.<ext>`.
 
-How to check results by hand (citations, timestamps, quiz answers, revision) is covered in [docs/TESTING.md](docs/TESTING.md).
+How to verify results by hand (citations, timestamps, quiz answers, revision) is covered in [README.md](README.md#what-it-does).
 
 ---
 

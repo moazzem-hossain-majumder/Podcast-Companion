@@ -18,7 +18,7 @@ Read this before the technical discussion. Each answer points to the code that p
 - **Why a job + polling for audio?** Long work shouldn't hold an HTTP request open; free proxies time out; it also lets the UI show stages.
 - **How are large files handled?** >24 MB → `compress_and_split` (16 kHz mono 32 kbps MP3, 20-min chunks), chunk offsets from measured durations, `ChunkResult` merge.
 - **Security?** Keys in env only; header auth to Gemini; `BodyLimitMiddleware` counts streamed bytes; `sniff_audio` ignores filenames; ffmpeg gets `-f <demuxer>` and no shell; CSP; `textContent`-only rendering; per-IP limiter.
-- **Why not Vercel?** 4.5 MB request-body cap; audio is a core feature (`docs/RESEARCH.md`).
+- **Why not Vercel?** 4.5 MB request-body cap; audio is a core feature (`RESEARCH.pdf`).
 - **What would you change with more time?** The three items in `ENGINEERING.md §G`.
 - **What's the weakest part?** Be candid: quote verification proves existence not reasoning; summary claims aren't individually verified; free-tier cold starts and tiny CPU; I couldn't live-test the provider calls in my build sandbox, so provider adapters are tested against mocked HTTP built from the documented formats and verified live with `scripts/check_providers.py` / `scripts/smoke_live.py`.
 
