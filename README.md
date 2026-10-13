@@ -76,11 +76,20 @@ After deploying, run the live end-to-end check (also prints real latencies):
 python scripts/smoke_live.py https://podcast-companion.onrender.com
 ```
 
-### Manual Verification & Test Execution Log
+## Test Execution Log & Visual Verification
 
-| # | Test Case | Input / File | What Was Verified | Screenshot Filename | Status |
-|---|---|---|---|---|:---:|
-| 01 | Built-in: Plain text | `episode.txt` (sample) | Overview, themes, takeaways, passage ranges (no fake timestamps), 6 verified quiz Qs | `test-01-sample-plain-text.png` | In Progress |
+Each test is independently executed and verified with detailed observations and full-resolution visual evidence:
+
+### Test 01: Built-in Plain Text Sample (No Timestamps)
+- **Input:** `app/static/samples/episode.txt` (Pasted text, 23 passages)
+- **Objective:** Verify plain-text parsing and confirm that the application displays passage ranges and honestly reports absent timestamps rather than inventing fake ones.
+- **Verification & Observations:**
+  - **Meta Information:** Clearly reports `23 passages · from text · no timestamps · written by Google Gemini gemini-3.1-flash-lite`.
+  - **Navigable Timeline:** Interactive chapter strip dynamically sizes blocks based on transcript coverage without fabricated times.
+  - **Structured Overview:** Synthesizes the episode into readable prose, key themes, and takeaways with verifiable citations (`source passage 3`).
+  - **Revision Interface:** Preset chips (*Shorter*, *Simpler language*, *More detail*, *Focus on actions*) and free-text revision input are active.
+
+![Test 01: Built-in Plain Text Sample](docs/screenshots/test-01-sample-plain-text.png)
 
 ## Deploy (free, no credit card)
 
