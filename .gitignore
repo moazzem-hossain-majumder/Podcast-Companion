@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+tests/e2e/package-lock.json
+*.log
+.DS_Store
+
+# real-world test files downloaded by scripts/download_test_files.ps1 (third-party content, not committed)
+test-files/

@@ -1,0 +1,51 @@
+Maya: Welcome to Study Hall, the show about how learning actually works. I'm Maya.
+
+Dev: And I'm Dev. Today's episode is about why we forget things, and what we can do about it. Maya, I have a confession. I read a whole textbook chapter last week and I can barely remember a thing.
+
+Maya: You're in good company. In 1885 a German psychologist named Hermann Ebbinghaus tested his own memory by learning lists of nonsense syllables. He found that forgetting is fastest right after learning. Within the first day he lost a big share of what he had memorised, and after that the loss slowed down. That pattern is now called the forgetting curve.
+
+Dev: So the first few hours and days are the danger zone.
+
+Maya: Exactly. But Ebbinghaus also found something hopeful. Each time he reviewed the material, the curve got flatter. The memory lasted longer before fading again. That is the seed of spaced repetition.
+
+Dev: Okay, define spaced repetition for me like I'm five.
+
+Maya: You review something just before you would forget it, and then you wait longer before the next review. So you might look at a new idea after one day, then after three days, then after a week, then after a month. The gaps grow as the memory gets stronger.
+
+Dev: And that beats cramming?
+
+Maya: For long-term memory, yes. Cramming can get you through tomorrow's exam, but researchers keep finding that the same amount of study spread over several days produces much better recall weeks later. This is called the spacing effect. Cramming feels productive because everything is fresh, but that feeling of fluency is misleading.
+
+Dev: Right, it feels like learning but it's really just short-term familiarity.
+
+Maya: Let's move to the second big idea, which is retrieval practice, sometimes called the testing effect. Instead of re-reading your notes, you close the book and try to recall the material from memory. Studies show that this effortful recall strengthens memory far more than re-reading the same pages.
+
+Dev: But re-reading feels so much safer. If I test myself I might fail.
+
+Maya: That's the point. Struggling a little is what helps. Researchers call these desirable difficulties. If the recall is too easy, you gain little. If it's slightly hard and you succeed, the memory gets stronger. And even a failed attempt helps, because when you check the answer afterwards you remember it better.
+
+Dev: So what does good retrieval practice look like in real life?
+
+Maya: Flashcards are the classic tool, but they are not the only option. You can write down everything you remember about a chapter without looking, then compare it with the book. You can explain the topic aloud to a friend. Or you can answer practice questions, which is exactly why quizzes at the end of a podcast episode can be useful.
+
+Dev: Nice plug. Let's talk about sleep, because I know that's your favourite topic.
+
+Maya: Guilty. Sleep is when the brain consolidates what you learned during the day. During deep sleep, memories that were fragile get stabilised and linked with existing knowledge. People who sleep after learning typically remember more than people who stay awake for the same length of time. So pulling an all-nighter before an exam can backfire, because you skip the very process that locks the material in.
+
+Dev: So no all-nighters. What else?
+
+Maya: Interleaving. Instead of practising one type of problem over and over, you mix different types in the same session. In a maths class you might alternate between fractions, percentages and ratios rather than doing twenty fractions in a row. It feels harder and your practice scores look worse at first, but students who interleave perform better on later tests, because they learn to choose the right method, not just to repeat one.
+
+Dev: That's a lot of techniques. If someone only has twenty minutes a day, where should they start?
+
+Maya: I'd suggest three simple steps. First, after you study something new, close your notes and write down what you remember. Second, schedule short reviews at growing intervals, using a calendar or a flashcard app that does the scheduling for you. Third, protect your sleep, especially in the nights after you learn something important.
+
+Dev: And how long before people see results?
+
+Maya: Most people notice that material feels more solid within two or three weeks. The honest caveat is that it takes discipline, because the methods that work best also feel the least comfortable in the moment.
+
+Dev: That's a great note to end on. So to recap: forgetting is fastest right after learning, reviewing at spaced intervals flattens the curve, testing yourself beats re-reading, sleep locks memories in, and mixing problem types builds flexible skills.
+
+Maya: Perfect summary. Thanks for listening to Study Hall. Next week we're talking about how habits form.
+
+Dev: See you then.

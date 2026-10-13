@@ -1,0 +1,535 @@
+1
+00:00:00,000 --> 00:00:05,186
+Nadia: Welcome to Wired Planet, the show about the hidden machinery behind everyday technology.
+
+2
+00:00:05,406 --> 00:00:06,381
+I'm Nadia.
+
+3
+00:00:06,931 --> 00:00:08,001
+Omar: And I'm Omar.
+
+4
+00:00:08,221 --> 00:00:14,101
+Today we're following a single web page from a server on the other side of the world all the way to your phone.
+
+5
+00:00:14,321 --> 00:00:18,781
+Nadia, when most people picture the internet, what do they picture?
+
+6
+00:00:19,331 --> 00:00:21,231
+Nadia: Usually something in the sky.
+
+7
+00:00:21,451 --> 00:00:23,685
+Satellites, or a vague cloud.
+
+8
+00:00:23,905 --> 00:00:29,964
+But the honest answer is that the internet is mostly glass and copper lying on the ground and on the sea floor.
+
+9
+00:00:30,184 --> 00:00:35,102
+The cloud is really a lot of buildings full of computers, joined together by cables.
+
+10
+00:00:35,652 --> 00:00:38,320
+Omar: So let's start at the bottom of the ocean.
+
+11
+00:00:38,540 --> 00:00:42,605
+How much international traffic actually goes through undersea cables?
+
+12
+00:00:43,155 --> 00:00:44,581
+Nadia: The vast majority.
+
+13
+00:00:44,801 --> 00:00:53,083
+Industry estimates usually say well over ninety five percent of data travelling between continents goes through submarine fibre optic cables.
+
+14
+00:00:53,303 --> 00:01:02,935
+Satellites carry a small share, and they matter a lot for remote places and ships, but cables carry the bulk because they offer far more capacity at lower cost.
+
+15
+00:01:03,485 --> 00:01:06,316
+Omar: These cables are not a new idea, right?
+
+16
+00:01:06,866 --> 00:01:07,911
+Nadia: Not at all.
+
+17
+00:01:08,131 --> 00:01:13,756
+The first transatlantic telegraph cable was completed in 1858.
+
+18
+00:01:13,976 --> 00:01:19,722
+Queen Victoria sent a message to the American president, and people celebrated in the streets.
+
+19
+00:01:19,942 --> 00:01:22,831
+Then the cable failed after about three weeks.
+
+20
+00:01:23,051 --> 00:01:27,903
+Engineers had pushed too much voltage through it, and the insulation broke down.
+
+21
+00:01:28,453 --> 00:01:29,521
+Omar: Three weeks.
+
+22
+00:01:29,741 --> 00:01:31,161
+That's a rough launch.
+
+23
+00:01:31,711 --> 00:01:34,313
+Nadia: It is, but it taught a lasting lesson.
+
+24
+00:01:34,533 --> 00:01:42,346
+A cable on the sea floor has to survive for decades with almost no maintenance, so it has to be designed carefully and treated gently.
+
+25
+00:01:42,566 --> 00:01:46,631
+Modern cables are expected to last around twenty five years.
+
+26
+00:01:47,181 --> 00:01:49,480
+Omar: What does a modern cable look like?
+
+27
+00:01:49,700 --> 00:01:52,444
+I imagine something as thick as a tree trunk.
+
+28
+00:01:52,994 --> 00:01:57,295
+Nadia: In the deep ocean, a typical cable is about as thick as a garden hose.
+
+29
+00:01:57,515 --> 00:02:00,963
+At its heart are a few hair thin strands of glass fibre.
+
+30
+00:02:01,183 --> 00:02:08,069
+Around them are layers of steel wire for strength, copper to carry electrical power, and plastic for insulation.
+
+31
+00:02:08,289 --> 00:02:15,896
+Near the shore, where ships and fishing gear are a bigger risk, the cable gets extra armour and is often buried under the sea bed.
+
+32
+00:02:16,446 --> 00:02:20,324
+Omar: Why does a cable need electrical power if it is carrying light?
+
+33
+00:02:20,874 --> 00:02:23,714
+Nadia: Because light fades as it travels through glass.
+
+34
+00:02:23,934 --> 00:02:29,543
+Every so often along the cable there is a repeater, which boosts the signal so it can keep going.
+
+35
+00:02:29,763 --> 00:02:34,905
+Those repeaters need power, and that power is fed in from stations on land at each end.
+
+36
+00:02:35,455 --> 00:02:38,389
+Omar: And the data itself is just pulses of light?
+
+37
+00:02:38,939 --> 00:02:39,678
+Nadia: Yes.
+
+38
+00:02:39,898 --> 00:02:47,542
+A laser switches on and off, or changes its pattern, billions of times per second, and each change encodes information.
+
+39
+00:02:47,762 --> 00:02:54,691
+Engineers also send many colours of light down the same fibre at once, and each colour carries its own stream of data.
+
+40
+00:02:54,911 --> 00:03:02,020
+That trick is called wavelength division multiplexing, and it is why a single fibre can carry an enormous amount of traffic.
+
+41
+00:03:02,570 --> 00:03:04,710
+Omar: How fast does that light move?
+
+42
+00:03:05,260 --> 00:03:12,998
+Nadia: Inside glass, light travels at roughly two thirds of its speed in a vacuum, so about two hundred thousand kilometres per second.
+
+43
+00:03:13,218 --> 00:03:17,064
+That sounds instant, but over long distances it adds up.
+
+44
+00:03:17,284 --> 00:03:24,817
+A signal crossing the Atlantic between London and New York needs a few tens of milliseconds each way, just because of distance.
+
+45
+00:03:25,037 --> 00:03:28,673
+No amount of clever software can beat that physical limit.
+
+46
+00:03:29,223 --> 00:03:32,289
+Omar: Okay, so we have this giant glass highway.
+
+47
+00:03:32,509 --> 00:03:35,433
+But a web page isn't one big lump of light.
+
+48
+00:03:35,653 --> 00:03:37,699
+How does it actually travel?
+
+49
+00:03:38,249 --> 00:03:41,584
+Nadia: It gets chopped into small pieces called packets.
+
+50
+00:03:41,804 --> 00:03:47,630
+Each packet carries a slice of the data plus a label saying where it came from and where it is going.
+
+51
+00:03:47,850 --> 00:03:54,826
+Packets from the same page can take different routes and arrive out of order, and your device puts them back together.
+
+52
+00:03:55,376 --> 00:03:57,820
+Omar: Who decided it should work that way?
+
+53
+00:03:58,370 --> 00:04:07,526
+Nadia: The core rules come from a design described by Vint Cerf and Bob Kahn in 1974, which became the TCP and IP protocols.
+
+54
+00:04:07,746 --> 00:04:11,798
+IP is the addressing system, a bit like the address on an envelope.
+
+55
+00:04:12,018 --> 00:04:15,052
+TCP is the part that makes delivery reliable.
+
+56
+00:04:15,272 --> 00:04:22,115
+Your device acknowledges the packets it receives, and if one goes missing, the sender notices and sends it again.
+
+57
+00:04:22,665 --> 00:04:26,850
+Omar: So when a video call gets choppy, is that packets going missing?
+
+58
+00:04:27,400 --> 00:04:28,727
+Nadia: Often, yes.
+
+59
+00:04:28,947 --> 00:04:38,040
+For live calls, waiting for a lost packet to be resent would cause an awkward pause, so real time apps usually accept a little loss and keep going.
+
+60
+00:04:38,260 --> 00:04:44,995
+That is why you might see a frozen frame or hear a robotic voice for a moment, rather than the call stopping completely.
+
+61
+00:04:45,545 --> 00:04:48,047
+Omar: Let's go back to the start of the journey.
+
+62
+00:04:48,267 --> 00:04:50,835
+I type a website name into my browser.
+
+63
+00:04:51,055 --> 00:04:52,600
+What happens first?
+
+64
+00:04:53,149 --> 00:05:00,275
+Nadia: Your device has to turn that name into a numeric address, because the network routes packets using numbers, not words.
+
+65
+00:05:00,495 --> 00:05:04,873
+That job belongs to the Domain Name System, usually called DNS.
+
+66
+00:05:05,093 --> 00:05:14,809
+It was introduced in 1983, and before that, computers relied on a single shared list of names and addresses that had to be copied around by hand.
+
+67
+00:05:15,359 --> 00:05:17,610
+Omar: A single list for the whole internet?
+
+68
+00:05:17,830 --> 00:05:19,489
+That can't have scaled.
+
+69
+00:05:20,039 --> 00:05:21,039
+Nadia: It didn't.
+
+70
+00:05:21,259 --> 00:05:23,548
+DNS replaced it with a hierarchy.
+
+71
+00:05:23,768 --> 00:05:33,721
+There are root servers at the top, then servers responsible for endings like dot com or dot org, and then servers run by each organisation for its own names.
+
+72
+00:05:33,941 --> 00:05:44,970
+Your device usually asks a nearby resolver, often run by your internet provider, and that resolver walks down the hierarchy and remembers the answer for a while so the next lookup is faster.
+
+73
+00:05:45,520 --> 00:05:48,912
+Omar: So the phone book is spread out across the whole world.
+
+74
+00:05:49,462 --> 00:05:50,507
+Nadia: Exactly.
+
+75
+00:05:50,727 --> 00:05:56,475
+And because answers are remembered, or cached, most lookups never need to travel very far.
+
+76
+00:05:57,025 --> 00:06:03,160
+Omar: Once my device knows the address, how do the packets find their way across all these different networks?
+
+77
+00:06:03,710 --> 00:06:06,371
+Nadia: The internet is really a network of networks.
+
+78
+00:06:06,591 --> 00:06:12,675
+Internet providers, universities, cloud companies and many others each run their own network.
+
+79
+00:06:12,895 --> 00:06:19,525
+They tell each other which addresses they can reach using a protocol called the Border Gateway Protocol, or BGP.
+
+80
+00:06:19,745 --> 00:06:25,797
+Each network then picks a path for traffic based on those announcements and on its business agreements.
+
+81
+00:06:26,347 --> 00:06:29,276
+Omar: That sounds like it depends a lot on trust.
+
+82
+00:06:29,826 --> 00:06:32,868
+Nadia: It does, and that is one of its weak points.
+
+83
+00:06:33,088 --> 00:06:38,411
+In 2008, a provider in Pakistan tried to block YouTube inside the country.
+
+84
+00:06:38,631 --> 00:06:44,029
+It announced a route for YouTube's addresses, and that announcement leaked out to the wider internet.
+
+85
+00:06:44,249 --> 00:06:51,594
+For a couple of hours, a large share of the world's YouTube traffic was pulled toward the wrong network and simply disappeared.
+
+86
+00:06:52,144 --> 00:06:55,972
+Omar: One mistake in one country, and the whole world notices.
+
+87
+00:06:56,522 --> 00:06:58,027
+Nadia: That is the trade off.
+
+88
+00:06:58,247 --> 00:07:05,944
+BGP is flexible and lets the network route around failures, but it was built in an era when operators mostly trusted each other.
+
+89
+00:07:06,164 --> 00:07:13,883
+Today there are newer security measures that let networks check whether an announcement is legitimate, and adoption has been growing steadily.
+
+90
+00:07:14,433 --> 00:07:16,643
+Omar: Here's something I've wondered about.
+
+91
+00:07:16,863 --> 00:07:23,517
+If light needs time to cross the ocean, why does a popular website from another continent still load quickly?
+
+92
+00:07:24,067 --> 00:07:28,254
+Nadia: Because very often the page isn't coming from the other continent at all.
+
+93
+00:07:28,474 --> 00:07:35,419
+Large websites use content delivery networks, which keep copies of popular files on servers in many cities.
+
+94
+00:07:35,639 --> 00:07:40,191
+When you ask for a video or an image, you are usually sent to a nearby copy.
+
+95
+00:07:40,411 --> 00:07:44,869
+The original server might be far away, but the copy could be in your own city.
+
+96
+00:07:45,419 --> 00:07:49,931
+Omar: So the fastest way to send data a long way is to not send it a long way.
+
+97
+00:07:50,481 --> 00:07:52,219
+Nadia: That's a good way to put it.
+
+98
+00:07:52,439 --> 00:08:00,091
+Caching close to the user saves time, and it also saves expensive long distance capacity for the traffic that really needs it.
+
+99
+00:08:00,641 --> 00:08:04,068
+Omar: Then there's the last step, from the street to my phone.
+
+100
+00:08:04,618 --> 00:08:05,336
+Nadia: Right.
+
+101
+00:08:05,556 --> 00:08:12,765
+That last stretch might be fibre to your building, an older copper line, a cable television line, or a mobile network.
+
+102
+00:08:12,985 --> 00:08:18,818
+If you are on wifi at home, the final few metres are radio waves between your router and your phone.
+
+103
+00:08:19,038 --> 00:08:24,862
+Ironically, that short wireless hop is often the slowest and least reliable part of the whole journey.
+
+104
+00:08:25,412 --> 00:08:31,520
+Omar: So when my video buffers, I should blame the wall between me and the router before I blame the ocean.
+
+105
+00:08:32,070 --> 00:08:33,845
+Nadia: Quite often, yes.
+
+106
+00:08:34,065 --> 00:08:39,591
+Moving closer to the router, or using a cable, fixes a surprising number of problems.
+
+107
+00:08:40,141 --> 00:08:42,578
+Omar: Let's talk about things going wrong.
+
+108
+00:08:42,798 --> 00:08:45,378
+What actually breaks undersea cables?
+
+109
+00:08:45,598 --> 00:08:47,571
+I've heard sharks bite them.
+
+110
+00:08:48,121 --> 00:08:53,997
+Nadia: Sharks have bitten cables, and there are photos to prove it, but they are a tiny part of the problem.
+
+111
+00:08:54,217 --> 00:09:02,387
+Most faults are accidents caused by people, especially fishing gear dragged along the sea bed and ships dropping anchor in the wrong place.
+
+112
+00:09:02,607 --> 00:09:07,447
+Natural events like earthquakes and underwater landslides cause some of the rest.
+
+113
+00:09:07,997 --> 00:09:12,173
+Omar: And how do you fix a cable that's lying thousands of metres down?
+
+114
+00:09:12,723 --> 00:09:14,751
+Nadia: With a specialised repair ship.
+
+115
+00:09:14,971 --> 00:09:20,441
+The crew works out roughly where the fault is by sending test signals down the cable from shore.
+
+116
+00:09:20,661 --> 00:09:27,220
+Then the ship lowers a hook called a grapnel, catches the cable, and lifts the damaged section to the surface.
+
+117
+00:09:27,440 --> 00:09:34,000
+Technicians splice in a new piece on board, a very delicate job with glass fibres, and lower it back down.
+
+118
+00:09:34,220 --> 00:09:39,382
+A repair can take days or weeks, depending on the weather and how deep the cable is.
+
+119
+00:09:39,932 --> 00:09:42,825
+Omar: Does the internet go down while that happens?
+
+120
+00:09:43,375 --> 00:09:49,526
+Nadia: Usually not, because important routes have several cables, and traffic is shifted onto the others.
+
+121
+00:09:49,746 --> 00:09:53,562
+The problem is when a region depends on only one or two cables.
+
+122
+00:09:53,782 --> 00:10:01,996
+Then a single fault can slow the connection for a whole country, which is why many governments now push for more routes and more landing points.
+
+123
+00:10:02,546 --> 00:10:06,206
+Omar: Let's sum up for anyone who wants to remember the journey.
+
+124
+00:10:06,756 --> 00:10:07,517
+Nadia: Sure.
+
+125
+00:10:07,737 --> 00:10:11,967
+First, your device uses DNS to turn a name into a numeric address.
+
+126
+00:10:12,187 --> 00:10:17,315
+Second, the page is split into packets, and TCP makes sure they all arrive.
+
+127
+00:10:17,535 --> 00:10:21,373
+Third, networks use BGP to choose a path between them.
+
+128
+00:10:21,593 --> 00:10:28,698
+Fourth, the long distances are covered by fibre optic cables, mostly on the sea floor, where light carries the data.
+
+129
+00:10:28,918 --> 00:10:35,667
+And finally, a content delivery network often means the data didn't have to travel very far in the first place.
+
+130
+00:10:36,217 --> 00:10:37,874
+Omar: And the practical tip?
+
+131
+00:10:38,424 --> 00:10:41,905
+Nadia: If things feel slow, check the short hops first.
+
+132
+00:10:42,125 --> 00:10:47,506
+Your wifi signal and your local connection are much more likely to be the bottleneck than the ocean.
+
+133
+00:10:48,056 --> 00:10:50,834
+Omar: That's all for this episode of Wired Planet.
+
+134
+00:10:51,054 --> 00:10:57,466
+Thanks for listening, and next time we'll look at how data centres keep millions of computers cool.

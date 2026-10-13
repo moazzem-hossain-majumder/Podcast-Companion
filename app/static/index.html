@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Podcast Companion: summary, chapters and quiz for any episode</title>
+  <meta name="description" content="Paste a transcript or upload audio. Get a summary, navigable chapters and a quiz grounded in the source.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e6b63'/%3E%3Crect x='6' y='13' width='3' height='6' rx='1.5' fill='white'/%3E%3Crect x='11' y='9' width='3' height='14' rx='1.5' fill='white'/%3E%3Crect x='16' y='5' width='3' height='22' rx='1.5' fill='white'/%3E%3Crect x='21' y='10' width='3' height='12' rx='1.5' fill='white'/%3E%3Crect x='26' y='14' width='3' height='4' rx='1.5' fill='white'/%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="12" width="3" height="8" rx="1.5"/><rect x="9" y="8" width="3" height="16" rx="1.5"/><rect x="15" y="3" width="3" height="26" rx="1.5"/><rect x="21" y="9" width="3" height="14" rx="1.5"/><rect x="27" y="13" width="3" height="6" rx="1.5"/></svg>
+      <span>Podcast Companion</span>
+    </div>
+    <button id="new-episode" class="quiet" type="button" hidden>New episode</button>
+  </header>
+
+  <div id="banner" class="banner" role="status" aria-live="polite" hidden></div>
+
+  <main id="main" tabindex="-1">
+    <!-- ============ INPUT ============ -->
+    <section id="input-view" aria-labelledby="h-input">
+      <h1 id="h-input">Turn an episode into something you can navigate</h1>
+      <p class="lede">Paste a transcript or upload a recording. You get a summary, chapters you can jump between, and a quiz where every answer points back to the exact passage it came from.</p>
+
+      <div class="tabs" role="tablist" aria-label="How do you want to add the episode?" id="input-tabs">
+        <button role="tab" id="tab-text" aria-controls="pane-text" aria-selected="true" type="button">Paste text</button>
+        <button role="tab" id="tab-file" aria-controls="pane-file" aria-selected="false" tabindex="-1" type="button">Transcript file</button>
+        <button role="tab" id="tab-audio" aria-controls="pane-audio" aria-selected="false" tabindex="-1" type="button">Audio file</button>
+      </div>
+
+      <div id="pane-text" role="tabpanel" aria-labelledby="tab-text">
+        <label for="text-input" class="sr-only">Transcript text</label>
+        <textarea id="text-input" rows="11" spellcheck="false" placeholder="Paste the transcript here. Speaker labels and timestamps like [12:34] are fine."></textarea>
+        <div class="field-foot"><span id="char-count" aria-live="off">0 characters</span></div>
+        <div class="sample-row" data-mode="paste" aria-label="Sample transcripts to paste"></div>
+      </div>
+
+      <div id="pane-file" role="tabpanel" aria-labelledby="tab-file" hidden>
+        <label class="drop" for="file-input" id="file-drop">
+          <input id="file-input" type="file" accept=".txt,.md,.srt,.vtt,text/plain,text/vtt">
+          <span class="drop-title" id="file-name">Choose a .txt, .md, .srt or .vtt file</span>
+          <span class="drop-hint">Subtitle files keep their real timestamps.</span>
+        </label>
+        <div class="sample-row" data-mode="file" aria-label="Sample transcript files"></div>
+      </div>
+
+      <div id="pane-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
+        <label class="drop" for="audio-input" id="audio-drop">
+          <input id="audio-input" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.flac,.webm,.aac,.mp4">
+          <span class="drop-title" id="audio-name">Choose an audio file</span>
+          <span class="drop-hint" id="audio-hint"></span>
+        </label>
+        <div class="sample-row" data-mode="audio" aria-label="Sample audio files"></div>
+        <div class="inline-field">
+          <label for="asr-provider">Transcription engine</label>
+          <select id="asr-provider">
+            <option value="auto">Auto (Groq Whisper, Gemini as backup)</option>
+            <option value="groq">Groq Whisper (real timestamps)</option>
+            <option value="gemini">Google Gemini (no timestamps)</option>
+          </select>
+        </div>
+        <div class="inline-field">
+          <label for="lang">Spoken language</label>
+          <select id="lang">
+            <option value="">Detect automatically</option>
+            <option value="en">English</option><option value="bn">Bengali</option><option value="hi">Hindi</option>
+            <option value="ur">Urdu</option><option value="ar">Arabic</option><option value="es">Spanish</option>
+            <option value="fr">French</option><option value="de">German</option><option value="pt">Portuguese</option>
+            <option value="id">Indonesian</option><option value="ja">Japanese</option><option value="zh">Chinese</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="limits" id="limits">Loading limits…</p>
+
+      <div class="actions">
+        <button id="build" class="primary" type="button">Build my companion</button>
+        <div class="mp" id="model-input" data-align="left"></div>
+      </div>
+      <p class="hint" id="model-hint">Choose one model to see only its output, or open <em>Compare models</em> after building to run Gemini and Groq side by side.</p>
+      <p id="input-error" class="error" role="alert" hidden></p>
+
+      <p class="privacy">
+        <strong>Before you submit.</strong> Your transcript or audio is sent to third-party AI services (Google Gemini, Groq) to produce the results.
+        Free tiers may use submitted content to improve their products, so only use material you have permission to share and nothing confidential.
+        Nothing is stored on this server; uploaded audio is deleted as soon as it is transcribed.
+      </p>
+    </section>
+
+    <!-- ============ PROGRESS ============ -->
+    <section id="progress-view" hidden aria-live="polite">
+      <h2 class="progress-title" id="progress-title">Working on it…</h2>
+      <p id="progress-stage" class="progress-stage"></p>
+      <div class="bar" aria-hidden="true"><div id="progress-fill"></div></div>
+      <p class="muted" id="progress-note"></p>
+    </section>
+
+    <!-- ============ RESULTS ============ -->
+    <section id="results-view" hidden aria-labelledby="ep-title">
+      <div class="result-head">
+        <div>
+          <h2 id="ep-title" tabindex="-1">Your episode</h2>
+          <p id="ep-line" class="lede small"></p>
+          <p id="ep-meta" class="meta"></p>
+        </div>
+        <div class="head-actions" role="group" aria-label="Model and export">
+          <div class="mp" id="model-results" data-align="right"></div>
+          <button id="copy-all" type="button" class="secondary">Copy all</button>
+          <button id="dl-md" type="button" class="secondary">Download .md</button>
+          <button id="dl-json" type="button" class="secondary">Download .json</button>
+        </div>
+      </div>
+
+      <nav class="strip-wrap" aria-label="Chapter timeline">
+        <div id="strip" class="strip" role="list"></div>
+        <p id="strip-caption" class="strip-caption" aria-live="polite">Chapters will appear here.</p>
+      </nav>
+
+      <div class="tabs" role="tablist" aria-label="Sections" id="result-tabs">
+        <button role="tab" id="rt-overview" aria-controls="rp-overview" aria-selected="true" type="button">Overview</button>
+        <button role="tab" id="rt-chapters" aria-controls="rp-chapters" aria-selected="false" tabindex="-1" type="button">Chapters</button>
+        <button role="tab" id="rt-quiz" aria-controls="rp-quiz" aria-selected="false" tabindex="-1" type="button">Quiz</button>
+        <button role="tab" id="rt-ask" aria-controls="rp-ask" aria-selected="false" tabindex="-1" type="button">Ask the episode</button>
+        <button role="tab" id="rt-compare" aria-controls="rp-compare" aria-selected="false" tabindex="-1" type="button">Compare models</button>
+        <button role="tab" id="rt-transcript" aria-controls="rp-transcript" aria-selected="false" tabindex="-1" type="button">Transcript</button>
+      </div>
+      <div id="rp-overview" role="tabpanel" aria-labelledby="rt-overview"></div>
+      <div id="rp-chapters" role="tabpanel" aria-labelledby="rt-chapters" hidden></div>
+      <div id="rp-quiz" role="tabpanel" aria-labelledby="rt-quiz" hidden></div>
+      <div id="rp-ask" role="tabpanel" aria-labelledby="rt-ask" hidden></div>
+      <div id="rp-compare" role="tabpanel" aria-labelledby="rt-compare" hidden></div>
+      <div id="rp-transcript" role="tabpanel" aria-labelledby="rt-transcript" hidden></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
