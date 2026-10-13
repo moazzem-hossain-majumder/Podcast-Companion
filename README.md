@@ -78,9 +78,13 @@ python scripts/smoke_live.py https://podcast-companion.onrender.com
 
 ## Test Execution Log & Visual Verification
 
-Each test is independently executed and verified with detailed observations and full-resolution visual evidence:
+Every feature, input format, interactive capability, revision mechanism, comparison tool, and error guardrail was independently executed, verified against the requirements of the challenge specification, and captured in high-resolution dark mode.
 
-### Test 01: Built-in Plain Text Sample (No Timestamps)
+---
+
+### Group 1: Built-in Samples & Text Ingestion (Tests 01–03)
+
+#### Test 01: Built-in Plain Text Sample (No Timestamps)
 - **Input:** `app/static/samples/episode.txt` (Pasted text, 23 passages)
 - **Objective:** Verify plain-text parsing and confirm that the application displays passage ranges and honestly reports absent timestamps rather than inventing fake ones.
 - **Verification & Observations:**
@@ -90,6 +94,286 @@ Each test is independently executed and verified with detailed observations and 
   - **Revision Interface:** Preset chips (*Shorter*, *Simpler language*, *More detail*, *Focus on actions*) and free-text revision input are active.
 
 ![Test 01: Built-in Plain Text Sample](docs/screenshots/test-01-sample-plain-text.png)
+
+#### Test 02: Built-in Timestamped Text (`[mm:ss]` Times)
+- **Input:** `app/static/samples/episode-timestamped.txt` (Text with `[00:06]` inline markers)
+- **Objective:** Verify that inline `[mm:ss]` markers are automatically parsed into true timestamps, enabling real timing in chapters.
+- **Verification & Observations:**
+  - **Meta Information:** Reports `22 passages · from text · with real timestamps · written by Google Gemini gemini-3.1-flash-lite`.
+  - **Chapter Timings:** Generates precise chapter intervals (`0:00 to 3:38`, `3:38 to 7:24`, `7:24 to 8:32`) with direct "open in transcript" links.
+  - **Chapter Revisions:** Dedicated chapter preset buttons (*Fewer, broader chapters*, *More granular*, *Shorter descriptions*) are active.
+
+![Test 02: Built-in Timestamped Text](docs/screenshots/test-02-sample-timestamped.png)
+
+#### Test 03: Short Episode Sample ("Study Hall")
+- **Input:** `app/static/sample.txt` (5-minute episode on learning and memory)
+- **Objective:** Verify rapid processing and end-to-end extraction on a concise 5-minute transcript.
+- **Verification & Observations:**
+  - **Processing Speed:** Completed in ~3.8 seconds total.
+  - **Content Synthesis:** Correctly captures core themes (*The Forgetting Curve*, *Spacing Effect*, *Retrieval Practice*) with grounded citations.
+  - **Meta Line:** Reports `11 passages · from text · no timestamps`.
+
+![Test 03: Short Episode Sample](docs/screenshots/test-03-sample-short.png)
+
+---
+
+### Group 2: Real Document & Subtitle Ingestion (Tests 04–07)
+
+#### Test 04: Plato's Euthyphro (`.txt` Document Upload)
+- **Input:** `test-files/euthyphro.txt` (Classic dialectic text, 138 passages, 71 KB)
+- **Objective:** Verify large literary/philosophical text file upload, passage segmentation, and structured overview without fabricated timestamps.
+- **Verification & Observations:**
+  - **Meta Information:** Clearly reports `138 passages · from text · no timestamps · written by Google Gemini gemini-3.1-flash-lite`.
+  - **Thematic Breakdown:** Distinguishes key philosophical inquiries (piety, divine command theory, dialectic refutation).
+  - **Full Layout:** Broad, responsive dark-mode view with full-bleed readable prose and action chips.
+
+![Test 04: Plato's Euthyphro](docs/screenshots/test-04-file-euthyphro-txt.png)
+
+#### Test 05: The Changelog 330 Technical Podcast (`.md` Format)
+- **Input:** `test-files/changelog-330.md` (Technical podcast transcript: Francesc Campoy on machine learning for source code analysis, 88 passages, 45 KB)
+- **Objective:** Verify markdown document ingestion, technical jargon handling (`source{d}`, Git AST, SQL querying code), and clean takeaway extraction.
+- **Verification & Observations:**
+  - **Meta Information:** Correctly parsed `88 passages · from text · no timestamps · written by Google Gemini gemini-3.1-flash-lite`.
+  - **Technical Accuracy:** Faithfully captures technical concepts including tree-sitter ASTs, SQL-on-git, and enterprise code observability.
+  - **Grounding Citations:** Takeaways link to specific passages with verified source citations.
+
+![Test 05: The Changelog 330](docs/screenshots/test-05-file-changelog-md.png)
+
+#### Test 06: NASA KNX Astronaut Interview (`.srt` Subtitle File)
+- **Input:** `test-files/nasa-knx-interview.srt` (Real NASA astronaut interview subtitle file with cue numbers, arrow markers `-->`, and millisecond times)
+- **Objective:** Verify that SRT files are parsed into genuine timestamps rather than plain text, enabling full chapter intervals and interactive navigation.
+- **Verification & Observations:**
+  - **Meta Information:** Explicitly indicates `13 passages · from text · with real timestamps · model: Auto`.
+  - **Precise Chapter Intervals:** Segments parsed into exact time bounds (`0:00 to 3:41`, `3:41 to 5:51`, `5:51 to 9:23`).
+  - **Interactive Jump Links:** "open in transcript" links jump directly to cue markers in the full transcript.
+
+![Test 06: NASA KNX Interview SRT](docs/screenshots/test-06-file-nasa-srt.png)
+
+#### Test 07: NASA Silicon Valley Live Stream (`.vtt` WebVTT Subtitle)
+- **Input:** `test-files/nasa-internship-live.vtt` (NASA internship live stream with WebVTT headers, cue identifiers, and timestamp ranges)
+- **Objective:** Verify WebVTT format compliance, subtitle sanitization, and timestamp-indexed chapter generation.
+- **Verification & Observations:**
+  - **Meta Information:** Shows `85 passages · from text · with real timestamps · written by Google Gemini gemini-3.1-flash-lite`.
+  - **Granular Chapters:** Generated rich, multi-segment chapters (`0:32 to 1:16`, `1:13 to 2:32`, `2:31 to 3:48`, `3:51 to 5:18`).
+  - **Visual Timeline:** The timeline bar renders proportional segments across the entire episode runtime.
+
+![Test 07: NASA Silicon Valley VTT](docs/screenshots/test-07-file-nasa-vtt.png)
+
+---
+
+### Group 3: Real Audio Formats & Speech-to-Text Pipeline (Tests 08–15)
+
+#### Test 08: Martin Amis Interview (`.mp3` Audio)
+- **Input:** `test-files/martin-amis-interview.mp3` (21.3 MB, MP3 audio)
+- **Objective:** Verify direct MP3 upload, Groq Whisper ASR processing under the 24 MB direct boundary, and structured synthesis.
+- **Verification & Observations:**
+  - **Meta Information:** Reports `16 passages · transcribed from audio · with real timestamps · written by Google Gemini gemini-3.1-flash-lite`.
+  - **Processing Latency:** Audio uploaded and transcribed via Whisper Large V3 Turbo in 18.0 seconds total.
+  - **Theme Extraction:** Captures nuanced literary reflections (*The Craft and Solitude of a Novelist*, modern celebrity culture).
+
+![Test 08: Martin Amis MP3 Audio](docs/screenshots/test-08-audio-martin-amis-mp3.png)
+
+#### Test 09: NASA AI Episode (`.m4a` Audio)
+- **Input:** `test-files/nasa-hwhap-424-ai.m4a` (16.5 MB, M4A container)
+- **Objective:** Verify M4A container identification, Whisper transcription, and timestamped chapter segmentation.
+- **Verification & Observations:**
+  - **Meta Information:** Reports `58 passages · transcribed from audio · with real timestamps · written by Google Gemini gemini-3.1-flash-lite`.
+  - **Accurate Timestamps:** Produces aligned chapter intervals (`0:00 to 3:05`, `3:06 to 5:17`, `5:17 to 7:37`).
+  - **Chapter Links:** Every chapter item includes functional "open in transcript" navigation buttons.
+
+![Test 09: NASA AI Episode M4A Audio](docs/screenshots/test-09-audio-nasa-m4a.png)
+
+#### Test 10: NASA Video Demuxed (`.mp4` Video Container)
+- **Input:** `test-files/nasa-knx-interview.mp4` (27.2 MB, MP4 video)
+- **Objective:** Verify ffmpeg demuxing of video containers into audio streams, automatic compression when exceeding 24 MB, and successful ASR.
+- **Verification & Observations:**
+  - **Demuxing & Compression:** Server extracted audio track and compressed to 16 kHz mono 32 kbps MP3 in ~2 seconds.
+  - **Whisper Alignment:** Generated clean timestamped transcript and chapter divisions.
+  - **UI Presentation:** Chapter strip accurately models space station interview discussions.
+
+![Test 10: NASA KNX Video MP4 Audio](docs/screenshots/test-10-audio-nasa-mp4.png)
+
+#### Test 11: Theodore Roosevelt 1912 Speech (`.wav` Audio)
+- **Input:** `test-files/roosevelt-1912-speech.wav` (43.5 MB, uncompressed WAV)
+- **Objective:** Ingest large uncompressed WAV recordings, downsample via ffmpeg, and transcribe historical speech.
+- **Verification & Observations:**
+  - **File Size Handling:** Handled 43.5 MB upload smoothly; compressed to lightweight stream for Whisper processing.
+  - **Transcription Quality:** Successfully deciphered vintage audio acoustics into legible, segmented passages.
+  - **Synthesis:** Overview summarizes historical 1912 Progressive ("Bull Moose") campaign rhetoric.
+
+![Test 11: Theodore Roosevelt 1912 WAV Audio](docs/screenshots/test-11-audio-roosevelt-wav.png)
+
+#### Test 12: Spoken Wikipedia: Bioinformatics (`.ogg` Audio)
+- **Input:** `test-files/spoken-wikipedia-bioinformatics.ogg` (18.7 MB, Ogg Vorbis, ~37 minutes)
+- **Objective:** Verify Ogg Vorbis demuxing, long-form audio transcription, and technical scientific domain summarization.
+- **Verification & Observations:**
+  - **Extended Duration:** Full 37-minute spoken article processed and transcribed into chapters within 17.0 seconds.
+  - **Domain Accuracy:** Accurately parsed specialized biology and computer science terminology (genomics, sequence alignment, protein folding).
+  - **Chapter Granularity:** Broad multi-stage chapters covering definitions, computational tools, and practical applications.
+
+![Test 12: Spoken Wikipedia Bioinformatics OGG Audio](docs/screenshots/test-12-audio-wikipedia-ogg.png)
+
+#### Test 13: Preservapedia McCoy Podcast (`.flac` Lossless Audio)
+- **Input:** `test-files/preservapedia-podcast-mccoy.flac` (37.5 MB, FLAC lossless)
+- **Objective:** Ingest lossless FLAC audio, confirm container detection, and verify structured overview synthesis.
+- **Verification & Observations:**
+  - **Header Sniffing:** FLAC magic bytes (`fLaC`) correctly identified without relying on mime-type.
+  - **Overview Structure:** Highlights preservation strategies, archival workflows, and interview takeaways with grounded passage citations.
+  - **Fast Execution:** End-to-end pipeline completed in 11.1 seconds.
+
+![Test 13: Preservapedia McCoy FLAC Audio](docs/screenshots/test-13-audio-preservapedia-flac.png)
+
+#### Test 14: Barbados 1960s Oral History (`.webm` Audio/Video)
+- **Input:** `test-files/barbados-1960s-interview.webm` (16.7 MB, WebM Matroska container)
+- **Objective:** Verify WebM Matroska container demuxing, regional accent transcription via Whisper, and interactive chapter strip.
+- **Verification & Observations:**
+  - **Container Parsing:** WebM demuxer accurately extracted audio stream.
+  - **Acoustic Robustness:** Whisper Large V3 successfully transcribed colloquial speech patterns into clean text.
+  - **Chapters View:** Chapters delineate personal narratives, historical context, and societal shifts in 1960s Barbados.
+
+![Test 14: Barbados 1960s WEBM Audio](docs/screenshots/test-14-audio-barbados-webm.png)
+
+#### Test 15: NASA Stream Copy Audio (`.aac` ADTS Stream)
+- **Input:** `test-files/nasa-hwhap-424-ai.aac` (16.5 MB, ADTS AAC stream)
+- **Objective:** Verify raw ADTS AAC audio stream detection (magic bytes `0xFF 0xF1`), Whisper ingestion, and overview generation.
+- **Verification & Observations:**
+  - **Sniffer Verification:** ADTS header identified and forwarded to Whisper without container transcoding errors.
+  - **Meta Information:** Displays 58 passages with verified real timestamps.
+  - **Synthesis:** Overview captures NASA AI governance and autonomy initiatives.
+
+![Test 15: NASA Stream Copy AAC Audio](docs/screenshots/test-15-audio-nasa-aac.png)
+
+---
+
+### Group 4: Interactive Features & Verification (Tests 16–19)
+
+#### Test 16: Interactive Quiz Citation Jump & Instant Source Verification
+- **Feature:** Quiz multiple-choice grading, verbatim source quotes, and instant transcript jump navigation.
+- **Objective:** Verify that answering a quiz question reveals the verbatim transcript quote, and clicking `source passage X` immediately navigates to and highlights the passage in the Transcript tab.
+- **Verification & Observations:**
+  - **Answer Feedback:** Selecting an answer displays status ("Correct" / "Not quite"), an explanatory note, and a blockquoted quote from the transcript.
+  - **Deep-Link Jumping:** Clicking `source passage 2` immediately selected the Transcript tab, scrolled passage `#2` into view, and applied a pulsing highlight glow.
+  - **Grounding Integrity:** Every quiz question is verified by the server to match real transcript text before being shown.
+
+![Test 16: Quiz Citation Jump](docs/screenshots/test-16-quiz-citation-jump.png)
+
+#### Test 17: "Ask the Episode" — Answerable Question with Grounded Quote
+- **Feature:** Free-form Q&A grounded exclusively in the podcast transcript.
+- **Objective:** Submit an answerable question ("What is the spacing effect and how does it help memory?") and verify that the answer quotes the transcript and cites the passage.
+- **Verification & Observations:**
+  - **Grounded Response:** Answered with an accurate explanation and verbatim citation: *“the same amount of study spread over several days produces much better recall weeks later. This is called the spacing effect.”*
+  - **Direct Citation:** Links to `source passage 4`.
+  - **Latency Reporting:** Reports `Answered by Google Gemini gemini-3.1-flash-lite in 11.4 s`.
+
+![Test 17: Ask the Episode Answerable](docs/screenshots/test-17-ask-answerable.png)
+
+#### Test 18: "Ask the Episode" — Unanswerable Question (Refusal Guardrail)
+- **Feature:** Hallucination prevention and out-of-scope question refusal.
+- **Objective:** Submit an unanswerable question ("Who won the 1998 football World Cup final?") and verify that the system honestly refuses rather than hallucinating world knowledge.
+- **Verification & Observations:**
+  - **Honest Refusal:** Clearly reports *“The provided transcript does not contain information about the 1998 football World Cup final.”*
+  - **Fast Guardrail:** Evaluated and refused in 1.0 second without unnecessary latency.
+  - **Multi-Turn History:** Preserves earlier questions and answers in reverse chronological order.
+
+![Test 18: Ask the Episode Unanswerable Refusal](docs/screenshots/test-18-ask-unanswerable.png)
+
+#### Test 19: Export Results & Multi-Format Downloading
+- **Feature:** One-click export options: clipboard copy, Markdown document download, and structured JSON download.
+- **Objective:** Verify clipboard copy functionality and availability of file downloads for external note-taking tools (Obsidian, Notion, Logseq).
+- **Verification & Observations:**
+  - **Copy All:** Copies title, overview, key themes, takeaways, timestamped chapters, and quiz questions with citations.
+  - **File Export:** Provides clean `.md` formatted markdown and schema-compliant `.json` files.
+  - **Visual Feedback:** Instant confirmation toast confirms export action.
+
+![Test 19: Export Results](docs/screenshots/test-19-export-results.png)
+
+---
+
+### Group 5: Meaningful Revisions & Undo State (Tests 20–21)
+
+#### Test 20: Section Revision — "Shorter" Preset
+- **Feature:** Section-specific prompt revision without touching or re-running other tabs.
+- **Objective:** Apply the "Shorter" revision preset chip on Overview and verify that only Overview is rewritten into a concise format.
+- **Verification & Observations:**
+  - **Localized Regeneration:** Only Overview reloaded; Chapters, Quiz, and Transcript remained untouched.
+  - **Content Condensation:** The summary shrunk to ~70 words with 3 streamlined takeaways.
+  - **Revision Banner:** Clearly indicates `Revised: “Make the summary much shorter: about 60-80 words, and keep only 3 takeaways.”. Only this section was regenerated.`
+
+![Test 20: Section Revision Shorter](docs/screenshots/test-20-revision-shorter.png)
+
+#### Test 21: Non-Destructive Undo Restoration
+- **Feature:** Reverting prompt modifications via client-side state history.
+- **Objective:** Click "Undo last change" and verify that the previous full-length overview is instantly restored.
+- **Verification & Observations:**
+  - **Immediate Rollback:** Full prior text restored without needing another network roundtrip.
+  - **Toast Feedback:** Displays `Reverted to the previous version`.
+  - **Preserved State:** Chapter strip and metadata remain completely in sync.
+
+![Test 21: Non-Destructive Undo](docs/screenshots/test-21-revision-undo.png)
+
+---
+
+### Group 6: Model & Engine Comparisons (Tests 22–23)
+
+#### Test 22: Live Model Comparison Table (Google Gemini vs Groq Pinned)
+- **Feature:** Side-by-side benchmark of two distinct LLM providers on the exact same transcript with pinned models (no cross-fallback).
+- **Objective:** Run overview, chapters, and quiz through Google Gemini and Groq, displaying latency, re-asks, and metrics side-by-side.
+- **Verification & Observations:**
+  - **Head-to-Head Metrics:**
+    - **Models:** `gemini-3.1-flash-lite` vs `openai/gpt-oss-120b`.
+    - **Overview Latency:** `5.2 s` (Gemini) vs `1.5 s` (Groq).
+    - **Chapters Latency:** `1.5 s` (Gemini) vs `1.8 s` (Groq).
+    - **Quiz Latency:** `5.8 s` (Gemini) vs `3.5 s` (Groq).
+    - **Validation Re-asks:** Both models scored `0` re-asks, demonstrating reliable prompt compliance.
+    - **Output Word Counts:** `126 words` (Gemini) vs `98 words` (Groq).
+  - **Exportability:** Side-by-side comparison is exportable as Markdown or JSON via dedicated buttons.
+
+![Test 22: Model Comparison Tab](docs/screenshots/test-22-model-comparison-tab.png)
+
+#### Test 23: Transcription Engine & Language Architecture
+- **Feature:** Configurable speech-to-text engines and language specification.
+- **Objective:** Verify available ASR choices (Auto, Groq Whisper, Gemini) and spoken language selection options in the input view.
+- **Verification & Observations:**
+  - **ASR Providers:** Surfaces `Auto (Groq Whisper, Gemini as backup)`, `Groq Whisper (real timestamps)`, and `Gemini (no timestamps)`.
+  - **Multi-Format Sample Buttons:** One-click sample row for `.mp3`, `.m4a`, `.mp4`, `.wav`, `.ogg`, `.flac`, `.webm`, `.aac`.
+  - **Language Support:** ISO language codes (English, Bengali, Hindi, Urdu, Arabic, Spanish, etc.) prevent misdetection on accented recordings.
+
+![Test 23: Transcription Engine Compare View](docs/screenshots/test-23-transcription-engine-compare.png)
+
+---
+
+### Group 7: Input Validation & Error Guardrails (Tests 24–26)
+
+#### Test 24: Input Guardrail — Minimum Transcript Length Rejection
+- **Feature:** Rejection of transcripts that are too short to generate a grounded companion.
+- **Objective:** Submit a tiny snippet ("Hello world...") and verify that the server returns HTTP 422 with a helpful user-facing error.
+- **Verification & Observations:**
+  - **Validation Alert:** Displays red error box: `The transcript is too short (66 characters). Provide at least 200 characters.`
+  - **Fail-Fast:** Rejected on client and server before consuming any model quota.
+  - **Character Counter:** Real-time badge reports `66 characters`.
+
+![Test 24: Error Too Short Transcript](docs/screenshots/test-24-error-too-short.png)
+
+#### Test 25: Magic-Byte Guardrail — Spoofed Audio File Detection
+- **Feature:** Rejection of spoofed files where arbitrary data is given a fake audio file extension.
+- **Objective:** Upload an ordinary text file renamed to `.mp3` and verify that binary inspection rejects the payload before running ffmpeg or Whisper.
+- **Verification & Observations:**
+  - **Header Inspection:** Magic-byte sniffer (`sniff_audio`) detected lack of ID3 or MPEG frame headers and returned HTTP 415.
+  - **Clear Error Alert:** Surfaces `That doesn't look like a supported audio file. Use mp3, m4a, wav, ogg, flac, webm or aac.`
+  - **Security Protection:** Protects backend transcoding workers from malformed inputs or zip-bomb exploits.
+
+![Test 25: Error Spoofed Bad Audio File](docs/screenshots/test-25-error-bad-audio.png)
+
+#### Test 26: Free-Tier Budget Guardrail — Groq Context Length Notice
+- **Feature:** Enforcement of provider token budgets on free tier models.
+- **Objective:** Submit a 30,000-character transcript pinned to Groq (which has an 8K token/min budget) and verify that the system returns HTTP 413 with an honest explanation and recommendations.
+- **Verification & Observations:**
+  - **Honest Context Limit:** Displays `This transcript is too long for Groq's free tier (about 24,000 characters). Use a shorter transcript, or choose Gemini or Auto.`
+  - **Actionable Guidance:** Recommends switching to Google Gemini or Auto (which seamlessly handles up to 150,000 characters).
+  - **Try Again Control:** Integrated "Try again" button allows immediate retry without page reload.
+
+![Test 26: Error Groq Free Tier Length Notice](docs/screenshots/test-26-error-too-long-groq.png)
+
 
 ## Deploy (free, no credit card)
 

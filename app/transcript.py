@@ -235,7 +235,7 @@ def parse_transcript(text: str, *, min_chars: int, max_chars: int, filename: Opt
             f"The transcript is too long ({len(text):,} characters). The limit is {max_chars:,} characters; "
             "split the episode and process it in parts."
         )
-    if letters < len(text) * 0.4:
+    if not looks_like_subtitles(text) and letters < len(text) * 0.4:
         raise TranscriptError("That doesn't look like a text transcript (too few letters). Check the file.")
 
     if looks_like_subtitles(text):
