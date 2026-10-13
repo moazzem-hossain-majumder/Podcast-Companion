@@ -60,15 +60,6 @@ Without any key the app still starts and clearly reports that AI generation isn'
 pip install -r requirements-dev.txt
 python -m pytest -q          # 135 tests: parsing, grounding, provider fallback + pinning, HTTP error mapping, audio pipeline with real ffmpeg, samples
 ```
-
-Browser-level UI test (real `index.html` + `app.js` in jsdom against a live server with a fake LLM; no keys needed):
-
-```bash
-cd tests/e2e && npm init -y && npm i jsdom && cd ../..
-python tests/e2e_server.py 8765 &      # then:
-BASE=http://127.0.0.1:8765 node tests/e2e/ui.test.mjs
-```
-
 After deploying, run the live end-to-end check (also prints real latencies):
 
 ```bash
@@ -580,7 +571,7 @@ app/
   security.py    rate limiter, magic-byte sniffing, streaming body-size limit, headers
   static/        index.html, styles.css, app.js (no build step), sample.txt
   static/samples/  the sample episode in every supported input format
-tests/           pytest suite + jsdom UI test + fake-LLM server
+tests/           pytest suite (135 tests)
 scripts/         check_providers.py (verify keys/models), run_all_tests.py (run full test suite),
                  smoke_live.py (verify deployment), download_test_files.ps1 (download test media)
 docs/            ENGINEERING.md, screenshots/
