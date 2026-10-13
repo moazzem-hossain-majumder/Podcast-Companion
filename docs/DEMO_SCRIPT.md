@@ -2,7 +2,8 @@
 
 > **Target Duration:** 11 to 14 Minutes  
 > **Presenter:** Moazzem Hossain Majumder  
-> **Challenge:** Thealon Animation Studios — AI Engineering Challenge (From Audio to Insight)  
+> **Walkthrough Video:** [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA)  
+> **Project:** AI Engineering Project (From Audio to Insight)  
 > **Live URL:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com)  
 > **Local URL:** [http://127.0.0.1:8000](http://127.0.0.1:8000)  
 >
@@ -30,7 +31,7 @@
 
 ---
 
-### 🟢 SCENE 1 [0:00 – 1:15] — Introduction & Project Overview (Thealon Challenge Context)
+### 🟢 SCENE 1 [0:00 – 1:15] — Introduction & Project Overview
 
 **📍 WHERE TO GO:** Tab 1 (`https://podcast-companion.onrender.com` Home Page)
 
@@ -46,7 +47,7 @@
 🗣️ **SAY THIS (Speak clearly and naturally):**
 > "Hello everyone! My name is Moazzem Hossain Majumder, and welcome to the full walkthrough of **Podcast Companion**.
 >
-> This application was engineered for the 48-Hour AI Engineering Challenge by Thealon Animation Studios in Dhaka.
+> This application was engineered as an AI Engineering Project.
 >
 > The problem we are addressing is familiar to anyone who listens to podcasts: long-form episodes contain great insights, but finding specific information, verifying whether a claim was actually said, or quickly testing your retention is difficult.
 >
@@ -345,7 +346,7 @@
 
 👉 **DO THIS (Mouse Actions):**
 1. Switch to **Tab 2** (GitHub `README.md`). Show the 135 passing pytest tests.
-2. Switch to **Tab 3** ([`RESEARCH.pdf`](file:///d:/podcast-companion/Podcast-Companion/RESEARCH.pdf)). Scroll through the styled pages.
+2. Switch to **Tab 3** ([`RESEARCH.pdf`](RESEARCH.pdf)). Scroll through the styled pages.
 3. Switch back to **Tab 1** (Live app).
 
 🗣️ **SAY THIS (Speak clearly):**
@@ -356,7 +357,7 @@
 >
 > All research is documented in our standalone `RESEARCH.pdf`, and the complete codebase with 135 passing tests is available on GitHub.
 >
-> Thank you to the team at Thealon Animation Studios for this challenge. I look forward to our technical discussion!"
+> Thank you for reviewing this project! I look forward to your questions and discussion!"
 
 ---
 

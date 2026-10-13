@@ -147,7 +147,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <body>
 
 <div class="header">
-  <span class="badge">Thealon AI Engineering Challenge</span>
+  <span class="badge">AI Engineering Project</span>
   <h1>Podcast Companion: Research & Engineering Findings</h1>
   <div class="subtitle">A clear, practical review of technical choices, reliability mechanisms, and real-world benchmarks</div>
   <div class="meta-grid">

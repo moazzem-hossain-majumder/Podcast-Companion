@@ -7,7 +7,6 @@ This guide covers three things: where to get a test input in **every supported f
 ## 1. Start the app locally (Windows PowerShell)
 
 ```powershell
-cd C:\Users\Lenovo\Downloads\podcast-companion\podcast-companion
 .venv\Scripts\activate
 pip install -r requirements.txt -r requirements-dev.txt
 python scripts\check_providers.py      # must show OK for at least one Gemini model and one Groq model

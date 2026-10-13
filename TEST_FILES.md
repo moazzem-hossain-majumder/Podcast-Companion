@@ -5,7 +5,6 @@ Every link below was checked on **12 October 2026**. Each one loaded and played 
 **Quickest way to get them all:** run the download script. It saves every file into `test-files\` with the correct extension and also creates the `.aac` file:
 
 ```powershell
-cd C:\Users\Lenovo\Downloads\podcast-companion\podcast-companion
 powershell -ExecutionPolicy Bypass -File scripts\download_test_files.ps1
 ```
 

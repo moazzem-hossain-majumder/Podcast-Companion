@@ -2,6 +2,8 @@
 
 A simple, easy-to-read summary of why we built Podcast Companion, the tools we tested, and what we learned.
 
+**Available Formats:** [PDF Document (`RESEARCH.pdf`)](../RESEARCH.pdf) &nbsp;|&nbsp; [Word Document (`RESEARCH.docx`)](../RESEARCH.docx)
+
 ---
 
 ## 1. Why We Built This (User Value)

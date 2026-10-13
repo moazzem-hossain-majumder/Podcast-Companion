@@ -2,7 +2,7 @@
 
 Turn a podcast transcript or recording into an interactive companion: a structured **overview**, **chapters** you can jump between, a **quiz** whose answers are checked against the source, and an **"ask the episode"** box that refuses to answer what the episode doesn't cover.
 
-**Live app:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) &nbsp;|&nbsp; **Research Paper (PDF):** [RESEARCH.pdf](RESEARCH.pdf) &nbsp;|&nbsp; Built for the Thealon AI Engineering Challenge.
+**Live app:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) &nbsp;|&nbsp; **Video Walkthrough:** [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA) &nbsp;|&nbsp; **Research Paper:** [RESEARCH.pdf](RESEARCH.pdf) / [RESEARCH.docx](RESEARCH.docx) &nbsp;|&nbsp; AI Engineering Project.
 
 ## What it does
 
@@ -76,16 +76,16 @@ After deploying, run the live end-to-end check (also prints real latencies):
 python scripts/smoke_live.py https://podcast-companion.onrender.com
 ```
 
-## Challenge Requirements & 10 Tasks Compliance Guide
+## Project Requirements & 10 Tasks Compliance Guide
 
-This section explains how each of the 10 core tasks and evaluation areas defined in `Thealon_AI_Eng_Challenge.pdf` was architected, implemented, verified, and documented across the codebase and live deployment.
+This section explains how each of the 10 core tasks and evaluation areas defined in the project specification was architected, implemented, verified, and documented across the codebase and live deployment.
 
 ---
 
 ### Task 01: Research & Context Analysis
 - **Challenge Requirement:** Conduct in-depth research exploring user value, listener personas, practical API comparisons (LLMs, Speech-to-Text, and cloud hosting), reliability strategies, practical operating constraints, and responsible API usage through an OWASP API Security lens.
 - **How It Was Followed & Implemented:**
-  - **Comprehensive Research Report:** Compiled into [`docs/RESEARCH.md`](docs/RESEARCH.md) and exported as a standalone, styled PDF document: **[`RESEARCH.pdf`](RESEARCH.pdf)**.
+  - **Comprehensive Research Report:** Compiled into [`docs/RESEARCH.md`](docs/RESEARCH.md) and exported as standalone styled documents: **[`RESEARCH.pdf`](RESEARCH.pdf)** and **[`RESEARCH.docx`](RESEARCH.docx)**.
   - **User Personas & Pain Points:** Identified key learner profiles (retention learners, time-constrained executives, accessibility-focused listeners, podcast educators). Solved the core listener problem: *"Where did they say that, and can I trust this?"* through passage-level citations rather than superficial ungrounded summaries.
   - **LLM Trade-Off Matrix:** Evaluated Google Gemini Flash/Flash-Lite (~1M context, native JSON, free tier), Groq `openai/gpt-oss-120b` (sub-2s inference, 8K TPM free tier ceiling), Hugging Face Inference Providers (fallback router), and local Ollama/llama.cpp (rejected due to 512MB RAM free-tier host limits).
   - **Speech-to-Text Evaluation:** Benchmarked Groq Whisper (`whisper-large-v3-turbo` and `large-v3` with segment timestamps via `verbose_json`) vs. Gemini native audio understanding vs. OpenAI paid Whisper. Designed an automated 16 kHz mono transcoding and 20-minute chunking pipeline to conquer Groq's 25 MB upload limit.
@@ -169,8 +169,8 @@ The challenge specification details 6 mandatory functional requirements:
 - **How It Was Followed & Implemented:**
   1. **Working, Deployed Application:** Live at [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com).
   2. **Public Git Repository:** Hosted at [moazzem-hossain-majumder/Podcast-Companion](https://github.com/moazzem-hossain-majumder/Podcast-Companion).
-  3. **Demo Video Script:** Documented step-by-step in [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md).
-  4. **Research Document:** Documented in [`docs/RESEARCH.md`](docs/RESEARCH.md) and compiled into **[`RESEARCH.pdf`](RESEARCH.pdf)**.
+  3. **Demonstration Video:** Published on YouTube: [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA) &nbsp;|&nbsp; Teleprompter script in [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md).
+  4. **Research Document:** Documented in [`docs/RESEARCH.md`](docs/RESEARCH.md) and compiled into **[`RESEARCH.pdf`](RESEARCH.pdf)** & **[`RESEARCH.docx`](RESEARCH.docx)**.
   5. **Engineering Notes:** Complete technical log in [`docs/ENGINEERING.md`](docs/ENGINEERING.md).
   6. **Three Prioritized Next Steps:** Fully detailed in README (Faithfulness Harness, Durable Persistence, Hierarchical Summarization & SSE).
 
@@ -213,10 +213,11 @@ The challenge specification details 6 mandatory functional requirements:
 - **Verification Checklist:**
   - [x] **Live Application Accessible:** Running on Render at https://podcast-companion.onrender.com.
   - [x] **Public Git Repository:** Clean, organized repository with active commit history.
-  - [x] **Research Document & PDF:** `docs/RESEARCH.md` and `RESEARCH.pdf` complete with sources and API analysis.
+  - [x] **Research Document & Formats:** `docs/RESEARCH.md`, `RESEARCH.pdf`, and `RESEARCH.docx` complete with sources and API analysis.
   - [x] **Engineering Notes:** `docs/ENGINEERING.md` with architecture diagrams and 3 debugging case studies.
   - [x] **Automated Test Suite:** 135 unit and integration tests passing (`pytest -q`).
   - [x] **26 Visual Verification Screenshots:** All test cases documented with dark-mode screenshots in README.
+  - [x] **Video Demonstration:** Published on YouTube at [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA).
   - [x] **Model Comparison:** Live side-by-side benchmark between Google Gemini and Groq.
   - [x] **Zero Credential Exposure:** Verified clean git history and `.env` ignore rules.
   - [x] **Three Prioritized Improvements:** Defined with technical rationale and impact analysis.
