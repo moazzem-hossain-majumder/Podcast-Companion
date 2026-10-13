@@ -375,6 +375,26 @@ Every feature, input format, interactive capability, revision mechanism, compari
 ![Test 26: Error Groq Free Tier Length Notice](docs/screenshots/test-26-error-too-long-groq.png)
 
 
+## Next Steps (Three Prioritised Improvements)
+
+Per the challenge deliverables specification, here are the three most important future improvements:
+
+1. **Faithfulness & Entailment Evaluation Harness (Reliability — Highest Priority)**
+   - *Why first:* While verbatim quotes are programmatically verified today, there is no offline quantitative regression gate tracking whether synthesized summary sentences strictly entail the cited source passages.
+   - *Planned approach:* Construct a curated golden dataset (5–10 multi-hour transcripts with human-annotated boundaries and question banks). Introduce an automated NLI (natural language inference) entailment checker to catch hallucination drifts when models are upgraded or backup providers take over.
+   - *Impact:* Makes LLM upgrades, model deprecations, and fallback routing fully measurable and regression-safe.
+
+2. **Durable Persistence & Asynchronous Job Architecture (Scalability & UX)**
+   - *Why second:* Currently, application state and transcription job tokens reside in memory; page reloads discard results and multi-instance deployments would require sticky sessions.
+   - *Planned approach:* Introduce a lightweight database (SQLite locally / PostgreSQL in production) with durable signed episode slugs (`/e/:id`), paired with Redis / Celery or a background queue for long-running audio transcriptions.
+   - *Impact:* Enables shareable companion URLs, resumable audio uploads across page reloads, and multi-instance horizontal scaling without re-spending API quota on revisits.
+
+3. **Hierarchical Summarization for Extended Episodes & Streaming SSE (Functionality & UX)**
+   - *Why third:* Fallback providers with small token budgets (such as Groq's 8K TPM free tier) cannot ingest 3+ hour raw episodes in a single prompt.
+   - *Planned approach:* Implement map-reduce / hierarchical chunk summarization for long episodes, alongside Server-Sent Events (SSE) so users see tokens stream into each tab immediately rather than waiting for full JSON payload completion.
+   - *Impact:* Eliminates context length barriers for multi-hour marathons and reduces time-to-first-token perception from ~5s down to <500ms.
+
+
 ## Deploy (free, no credit card)
 
 Hosted on **Render's free web service** (see [docs/RESEARCH.md](docs/RESEARCH.md) for why not Vercel or Hugging Face Spaces).
