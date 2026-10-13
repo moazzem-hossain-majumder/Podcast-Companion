@@ -73,8 +73,14 @@ BASE=http://127.0.0.1:8765 node tests/e2e/ui.test.mjs
 After deploying, run the live end-to-end check (also prints real latencies):
 
 ```bash
-python scripts/smoke_live.py https://<your-render-url>
+python scripts/smoke_live.py https://podcast-companion.onrender.com
 ```
+
+### Manual Verification & Test Execution Log
+
+| # | Test Case | Input / File | What Was Verified | Screenshot Filename | Status |
+|---|---|---|---|---|:---:|
+| 01 | Built-in: Plain text | `episode.txt` (sample) | Overview, themes, takeaways, passage ranges (no fake timestamps), 6 verified quiz Qs | `test-01-sample-plain-text.png` | In Progress |
 
 ## Deploy (free, no credit card)
 
