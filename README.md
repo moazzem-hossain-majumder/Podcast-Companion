@@ -2,7 +2,7 @@
 
 Turn a podcast transcript or recording into an interactive companion: a structured **overview**, **chapters** you can jump between, a **quiz** whose answers are checked against the source, and an **"ask the episode"** box that refuses to answer what the episode doesn't cover.
 
-**Live app:** `<your-render-url>` &nbsp;|&nbsp; **Demo video:** `<your-video-url>` &nbsp;|&nbsp; Built for the Thealon AI Engineering Challenge.
+**Live app:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) &nbsp;|&nbsp; **Demo video:** `<your-video-url>` &nbsp;|&nbsp; Built for the Thealon AI Engineering Challenge.
 
 ## What it does
 
