@@ -21,55 +21,55 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: #1e293b;
+    color: #111827;
     line-height: 1.5;
     font-size: 10pt;
     margin: 0;
     padding: 0;
   }
   .header {
-    border-bottom: 2px solid #0f766e;
+    border-bottom: 2px solid #111827;
     padding-bottom: 10px;
     margin-bottom: 18px;
   }
   .badge {
     display: inline-block;
-    background: #0f766e;
+    background: #111827;
     color: #ffffff;
     font-size: 8pt;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 3px;
     margin-bottom: 6px;
   }
   h1 {
     font-size: 18pt;
-    color: #0f172a;
+    color: #111827;
     margin: 4px 0 4px 0;
     font-weight: 800;
     letter-spacing: -0.02em;
   }
   .subtitle {
     font-size: 10.5pt;
-    color: #475569;
+    color: #4b5563;
     margin-bottom: 8px;
   }
   .meta-grid {
     display: flex;
     gap: 18px;
     font-size: 8.5pt;
-    color: #64748b;
+    color: #4b5563;
     margin-top: 6px;
   }
   .meta-grid strong {
-    color: #334155;
+    color: #111827;
   }
   h2 {
     font-size: 12pt;
-    color: #0f766e;
-    border-bottom: 1px solid #cbd5e1;
+    color: #111827;
+    border-bottom: 1.5px solid #111827;
     padding-bottom: 3px;
     margin-top: 18px;
     margin-bottom: 8px;
@@ -78,7 +78,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   }
   h3 {
     font-size: 10.5pt;
-    color: #1e293b;
+    color: #111827;
     margin-top: 12px;
     margin-bottom: 4px;
     font-weight: 600;
@@ -101,36 +101,46 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     font-size: 9pt;
   }
   th, td {
-    border: 1px solid #cbd5e1;
+    border: 1px solid #d1d5db;
     padding: 6px 8px;
     text-align: left;
     vertical-align: top;
   }
   th {
-    background-color: #f1f5f9;
+    background-color: #f3f4f6;
     font-weight: 700;
-    color: #0f172a;
+    color: #111827;
   }
   tr:nth-child(even) td {
-    background-color: #f8fafc;
+    background-color: #fafafa;
   }
   .callout {
-    background-color: #f0fdf4;
-    border-left: 4px solid #16a34a;
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-left: 4px solid #111827;
     padding: 8px 12px;
     margin: 8px 0 12px 0;
     font-size: 9pt;
     border-radius: 0 4px 4px 0;
   }
   .callout strong {
-    color: #15803d;
+    color: #111827;
   }
   .highlight-box {
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
     padding: 10px 12px;
     margin: 8px 0 12px 0;
+  }
+  code {
+    background-color: #f3f4f6;
+    color: #111827;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 8.5pt;
+    padding: 1px 4px;
+    border-radius: 3px;
+    border: 1px solid #e5e7eb;
   }
 </style>
 </head>
@@ -351,7 +361,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 """
 
 def generate_pdf():
-    print("Generating simplified Research PDF...")
+    print("Generating monochrome/grayscale Research PDF...")
     with sync_playwright() as p:
         browser = p.chromium.launch(channel="msedge", headless=True)
         page = browser.new_page()
