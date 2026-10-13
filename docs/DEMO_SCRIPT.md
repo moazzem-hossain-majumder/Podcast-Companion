@@ -1,245 +1,273 @@
-# Podcast Companion — Demo Video Master Guide & Director's Script
+# Podcast Companion — Demo Video Script (Easy Words & Precise Actions)
 
-> **Target Duration:** 4.5 – 5.0 Minutes  
-> **Format:** Full-screen 1080p screen recording (Loom, OBS, or QuickTime) + Voiceover Microphone  
-> **Presenter:** Moazzem Hossain Majumder  
-> **Objective:** Demonstrate the live deployed application, explain core technical decisions, showcase the citation-grounding architecture, perform meaningful revisions, benchmark Gemini vs. Groq, and present the 26-test visual verification suite.
-
----
-
-## 1. Pre-Recording Staging & Preparation
-
-Before hitting "Record", prepare your workspace so the demonstration is 100% fluid with zero waiting or awkward window switching:
-
-### A. Wake up the Live Service
-- Render free-tier instances sleep after 15 minutes of inactivity.
-- Open **[https://podcast-companion.onrender.com](https://podcast-companion.onrender.com)** 2 minutes before recording. Run a quick sample run to ensure the container is warm and responsive.
-
-### B. Setup Three Browser Tabs in One Window
-- **Tab 1 (Active App):** `https://podcast-companion.onrender.com` (Dark Mode, Zoom: 100%)
-- **Tab 2 (Test Suite in README):** GitHub repository `README.md` scrolled directly to `## Test Execution Log & Visual Verification` (showing the 26 dark-mode screenshots).
-- **Tab 3 (Research Paper):** `RESEARCH.pdf` opened in your browser viewer (showing executive summary and comparison matrix).
-
-### C. Audio & Screen Configuration
-- Resolution: 1920x1080 (1080p).
-- Browser address bar visible (proves live Render URL).
-- Browser DevTools / console kept **closed** for a clean user view.
-- Clear desktop notifications and mute system sounds.
+> **Goal:** A clear, friendly 4 to 5-minute video walkthrough.  
+> **Speaker:** Moazzem Hossain Majumder  
+> **Language:** Simple, easy everyday English. No confusing jargon.  
+> **Screen:** Live app running at **https://podcast-companion.onrender.com** in dark mode.
 
 ---
 
-## 2. Master Storyboard & Timed Script
+## 1. Quick Setup Before You Record
 
-Below is the complete, word-for-word spoken transcript paired with exact screen interactions and technical discussion points.
+1. **Wake up the website:** Open [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) 2 minutes before recording so it responds instantly.
+2. **Have 3 tabs open in your browser:**
+   - **Tab 1:** The live website (`https://podcast-companion.onrender.com`)
+   - **Tab 2:** Your GitHub `README.md` (scrolled to the 26 screenshot test pictures)
+   - **Tab 3:** The `RESEARCH.pdf` file opened in the browser
+3. **Keep it clean:** Close browser developer tools, set browser zoom to 100%, and mute your phone.
+
+---
+
+## 2. Word-for-Word Video Script (With Exact Mouse & Hover Moves)
 
 ```mermaid
 flowchart TD
-    Act1["Act 1: Hook & Core Problem (0:00 - 0:35)"]
-    Act2["Act 2: Ingestion & Audio Pipeline (0:35 - 1:20)"]
-    Act3["Act 3: Grounded Synthesis & Chapters (1:20 - 2:05)"]
-    Act4["Act 4: Interactive Quiz & 'Ask' Abstention (2:05 - 2:50)"]
-    Act5["Act 5: Isolated Revisions & Instant Undo (2:50 - 3:30)"]
-    Act6["Act 6: Live Pinned Model Comparison (3:30 - 4:10)"]
-    Act7["Act 7: 26-Test Suite & Security Guardrails (4:10 - 4:45)"]
-    Act8["Act 8: Engineering Highlights & Wrap-Up (4:45 - 5:00)"]
+    Step1["1. Look of the Website & Inputs/Outputs (0:00 - 0:45)"]
+    Step2["2. Giving Input & Running Audio (0:45 - 1:30)"]
+    Step3["3. The Output: Overview & Chapters (1:30 - 2:15)"]
+    Step4["4. Interactive Quiz & Ask the Episode (2:15 - 3:00)"]
+    Step5["5. Making Revisions & Instant Undo (3:00 - 3:40)"]
+    Step6["6. Comparing Gemini and Groq (3:40 - 4:15)"]
+    Step7["7. Showing the 26 Tests & Error Checks (4:15 - 4:45)"]
+    Step8["8. Wrap Up & Thank You (4:45 - 5:00)"]
 
-    Act1 --> Act2 --> Act3 --> Act4 --> Act5 --> Act6 --> Act7 --> Act8
+    Step1 --> Step2 --> Step3 --> Step4 --> Step5 --> Step6 --> Step7 --> Step8
 ```
 
 ---
 
-### Act 1: The Hook & The Core Problem
-- **Time:** `0:00 – 0:35` (35 seconds)
-- **Screen Action:** 
-  - Start on Tab 1 (`https://podcast-companion.onrender.com`).
-  - Move mouse smoothly over the clean dark-mode interface.
-  - Hover briefly over the three input tabs: **Paste text**, **Upload document**, **Audio file**.
-  - Click the **Model ⌄** menu to show available models: *Auto*, *Google Gemini*, *Groq*.
-- **What to SAY (Voiceover):**
-  > *"Hello everyone! My name is Moazzem Hossain Majumder, and this is **Podcast Companion**, deployed live on Render for the Thealon AI Engineering Challenge.*
+### Step 1: Look of the Website, What Goes In, What Comes Out
+- **Time:** `0:00 – 0:45` (45 seconds)
+- **Mouse & Screen Actions:**
+  - Keep the screen on the live website home page.
+  - **[HOVER]** over the top title: **Podcast Companion**.
+  - **[HOVER]** across the three input tabs one by one:
+    1. Hover over **Paste text**.
+    2. Hover over **Upload document**.
+    3. Hover over **Audio file**.
+  - **[HOVER]** over the **Model ⌄** dropdown button in the top right. Click it once to show *Auto*, *Google Gemini*, and *Groq*, then click it again to close it.
+  - **[HOVER]** over the small grey text showing the limits: *Max 150,000 characters · Audio up to 60 MB / 90 min*.
+- **What to SAY (Simple English):**
+  > *"Hello everyone! My name is Moazzem Hossain Majumder, and this is **Podcast Companion**, running live on Render.*
   >
-  > *Every day, millions of people listen to educational podcasts, but retaining and finding specific information is painful. Typical AI tools generate generic, hallucinated summaries that you can’t verify.*
+  > *Let me first explain how this website looks and works.*
   >
-  > *Podcast Companion solves this through **deterministic grounding**: transforming raw podcast audio or transcripts into an interactive companion where every takeaway, chapter, quiz answer, and conversational query is strictly verified against verbatim source citations."*
-- **What to DISCUSS (Engineering Context):**
-  - Point out that limits are not hardcoded in the frontend; they are dynamically fetched from the `/api/config` backend endpoint to ensure strict client-server alignment.
+  > *As you can see, the design is clean, dark, and easy on the eyes. At the top, we have three different ways to provide input:*
+  > * *First, you can **paste plain text** or text with timestamps.*
+  > * *Second, you can **upload documents** like text files, markdown, or subtitle files.*
+  > * *Third, you can **upload real audio files** like MP3, WAV, or M4A.*
+  >
+  > *And up here, you can pick which AI model to use: Auto, Google Gemini, or Groq.*
+  >
+  > *Now, what output will we get? In a few seconds, the app turns any podcast into five helpful things:*
+  > * *A clear **summary and key takeaways**,*
+  > * *A clickable **chapter timeline** with exact timestamps,*
+  > * *A fun **interactive quiz** to test what you learned,*
+  > * *An **'Ask the Episode'** question box,*
+  > * *And easy **download buttons** to save everything as Markdown or JSON.*
+  >
+  > *Best of all, every single takeaway and quiz answer comes with a real quote from the episode, so you know you can trust it."*
 
 ---
 
-### Act 2: Multimodal Ingestion & Audio Pipeline
-- **Time:** `0:35 – 1:20` (45 seconds)
-- **Screen Action:**
-  - Click the **Audio file** tab.
-  - Point to the **Try a sample** row displaying 8 formats (`.mp3`, `.m4a`, `.mp4`, `.wav`, `.ogg`, `.flac`, `.webm`, `.aac`).
-  - Click the **.mp3** button (loads the built-in 11-minute episode on Undersea Internet Cables).
-  - Click **Generate Companion**.
-  - Show the live progress indicator transitioning through stages: *Validating file → Transcoding / Probing → Whisper ASR Transcription → Generating companion sections*.
-- **What to SAY (Voiceover):**
-  > *"Let's look at content ingestion. The application accepts raw text, subtitle files like SRT and VTT, and all major audio formats up to 60 MB and 90 minutes.*
+### Step 2: Providing Audio Input & Watching It Run
+- **Time:** `0:45 – 1:30` (45 seconds)
+- **Mouse & Screen Actions:**
+  - Click on the **Audio file** tab.
+  - **[HOVER]** over the **Try a sample:** row. Move your mouse across the format buttons: `.mp3`, `.m4a`, `.mp4`, `.wav`, `.ogg`, `.flac`, `.webm`, `.aac`.
+  - Click the **.mp3** button. Notice how the file name appears in the box.
+  - **[HOVER]** over the small privacy note at the bottom (*Privacy: Content is processed by Google Gemini and Groq...*).
+  - Click the purple **Generate Companion** button.
+  - Watch the progress box update: *Validating file → Transcribing with Groq Whisper → Creating sections*.
+- **What to SAY (Simple English):**
+  > *"Now let's try it with real audio.*
   >
-  > *I'll click our built-in 11-minute MP3 sample. Behind the scenes, the server inspects the audio's magic bytes to prevent spoofing, probes duration using a bundled static ffmpeg binary, and automatically downsamples to 16 kHz mono.*
+  > *Notice this helpful row here called 'Try a sample'. You don't even have to hunt for your own files—we built in real samples for all eight popular audio formats.*
   >
-  > *If an audio file exceeds 24 megabytes, our background pipeline splits it into 20-minute chunks, transcribes each via Groq Whisper with verbose JSON segment offsets, and stitches the transcript with verified millisecond time offsets."*
-- **What to DISCUSS (Engineering Context):**
-  - Highlight why Render was chosen over Vercel: Vercel has a hard 4.5 MB request ceiling that breaks podcast audio uploads.
+  > *I will click on **.mp3**. This loads an 11-minute educational podcast about Undersea Internet Cables.*
+  >
+  > *Down here, there is a clear privacy note letting users know how their data is handled.*
+  >
+  > *Now I click **Generate Companion**.*
+  >
+  > *Look at the progress bar: behind the scenes, the server checks the audio file header, uses Whisper to transcribe speech into text with exact time tags, and then sends the text to our AI pipeline. Everything updates live on screen."*
 
 ---
 
-### Act 3: Grounded Synthesis & Navigable Chapters
-- **Time:** `1:20 – 2:05` (45 seconds)
-- **Screen Action:**
-  - The results view loads.
-  - Highlight the metadata banner: `22 passages · from audio · with real timestamps · model: Auto`.
-  - Scroll through the **Episode Overview**: title, one-liner, summary, themes, takeaways.
-  - Hover over a takeaway chip (e.g., `source passage 3`) and show the citation tag.
-  - Switch to the **Chapters** tab or view the proportional chapter timeline strip.
-  - Hover over the timeline blocks to show chapter titles and start times.
-  - Click a chapter card (e.g., *Chapter 3: Deep Sea Faults & Cable Ships*) — demonstrate how the page jumps directly to that passage in the full transcript view.
-- **What to SAY (Voiceover):**
-  > *"The results are in! Look at the top metadata badge: it explicitly informs the user that 22 passages were parsed with real timestamps.*
+### Step 3: Looking at the Output (Overview & Chapters)
+- **Time:** `1:30 – 2:15` (45 seconds)
+- **Mouse & Screen Actions:**
+  - The results page appears smoothly.
+  - **[HOVER]** over the top info badge: `22 passages · from audio · with real timestamps · model: Auto`.
+  - Scroll down through the **Episode Overview**:
+    - Show the Title and the One-Sentence summary.
+    - Show the 150-word summary paragraph.
+    - **[HOVER]** over the **Takeaways** list. Hover directly over one of the citation chips (for example, `source passage 3`).
+  - Switch to the **Chapters** tab (or look at the chapter strip at the top).
+  - **[HOVER]** slowly across each colored block in the **Chapter Timeline Strip**:
+    - Point out how each block has a different width depending on how long that topic lasted.
+    - Show the tooltip that pops up with the chapter title.
+  - **[CLICK]** on one of the Chapter cards below (e.g. *Chapter 3: Deep Sea Faults*).
+  - Watch the page smoothly scroll down and highlight that exact sentence in the full transcript!
+- **What to SAY (Simple English):**
+  > *"And here are our results!*
   >
-  > *In the Overview, we get a concise 150-word summary, key themes, and actionable takeaways. Notice these citation chips: every takeaway links to a specific numbered passage. If the LLM generates a takeaway without a real citation, our deterministic Python validator strips it out.*
+  > *At the very top, this badge tells us: 22 passages were found, with real timestamps from audio.*
   >
-  > *Now look at the chapter strip: the block widths are strictly proportional to the actual duration of each topic. More importantly, these timestamps are real—extracted directly from Whisper audio segments, never hallucinated by the model. When I click a chapter, it jumps right to that exact time in the transcript."*
-- **What to DISCUSS (Engineering Context):**
-  - Mention the **Honest Timestamp Policy**: If plain text without times is uploaded, the app displays passage numbers and an explicit badge explaining why timestamps are absent, rather than guessing.
+  > *In the Overview, we have a catchy title, a short one-liner, a 150-word summary, and key takeaways.*
+  >
+  > *Now, look closely as I hover over these small citation tags next to each takeaway. Every single point links directly to a passage in the transcript. The AI cannot make up facts because our code checks every citation.*
+  >
+  > *Next, look at this colorful chapter timeline bar at the top.*
+  >
+  > *As I hover my mouse over these blocks, you can see the name and start time of each chapter. Notice how the blocks are different widths: longer topics get wider blocks, perfectly matching the audio duration.*
+  >
+  > *These timestamps are 100% real from Whisper. When I click this chapter, watch—it jumps straight to that exact moment in the transcript and highlights it!"*
 
 ---
 
-### Act 4: Interactive Learning Quiz & "Ask the Episode"
-- **Time:** `2:05 – 2:50` (45 seconds)
-- **Screen Action:**
-  - Click the **Quiz** tab.
-  - Read Question 1. Click the **correct** answer: observe the green badge, immediate score increment (`Score: 1/3`), and explanation.
-  - Point to the **Source quote** box beneath the explanation. Click the quote link — show how the transcript smoothly scrolls and highlights the passage.
-  - Read Question 2. Click an **incorrect** answer: observe the red badge, the highlighted correct answer, and the explanation.
-  - Switch to the **Ask the episode** tab.
-  - Type a covered question: *"What causes most undersea cable damage?"* → Click Ask → Show answer citing fishing nets and anchors with a verified quote.
-  - Type an uncovered question: *"Who won the 2022 World Cup?"* → Click Ask → Show the system's honest refusal: *"I won't answer because this is not mentioned in the episode."*
-- **What to SAY (Voiceover):**
-  > *"Next is our interactive learning quiz. When I click an option, feedback is instantaneous. But what makes this truly trustworthy is the verbatim quote requirement.*
+### Step 4: The Interactive Quiz & "Ask the Episode"
+- **Time:** `2:15 – 3:00` (45 seconds)
+- **Mouse & Screen Actions:**
+  - Click on the **Quiz** tab.
+  - **[HOVER]** over the four answer choices for Question 1.
+  - **[CLICK]** on the **correct** answer.
+    - Show the option turn **bright green**.
+    - Show the score counter update at the top: `Score: 1/3`.
+    - **[HOVER]** over the green explanation box.
+    - **[HOVER]** over the **Source quote** box beneath it.
+    - **[CLICK]** on the blue quote link — watch the transcript scroll and highlight the source sentence!
+  - Scroll down to Question 2.
+  - **[CLICK]** on an **incorrect** answer.
+    - Show the clicked option turn **red**.
+    - Show the correct answer highlight in green with the explanation.
+  - Click on the **Ask the episode** tab.
+  - Type: *"What causes most undersea cable damage?"* → Click **Ask**.
+    - Show the answer with a verified quote mentioning fishing nets and boat anchors.
+  - Type: *"Who won the 2022 World Cup?"* → Click **Ask**.
+    - Show the polite refusal: *"I won't answer because this is not mentioned in the episode."*
+- **What to SAY (Simple English):**
+  > *"Now let's check out the Interactive Quiz.*
   >
-  > *Every question generated by the LLM must provide an exact source quote. The backend verifies that this quote exists in the source transcript before showing the question. If I click this quote, the app jumps immediately to the exact passage.*
+  > *Here are multiple-choice questions to test your understanding. As I hover over the choices, they highlight nicely.*
   >
-  > *We also have 'Ask the Episode'. When I ask about cable damage, it answers with a verified quote. But when I ask an out-of-domain question—like 'Who won the 2022 World Cup?'—the model strictly abstains rather than making up answers."*
-- **What to DISCUSS (Engineering Context):**
-  - Mention server-side option shuffling: models often exhibit a bias toward placing the correct answer in position B; our pipeline shuffles answer positions on the server.
+  > *Let's click the right answer on Question 1. It turns green right away, gives us an explanation, and updates our score.*
+  >
+  > *Even better: look at this box called 'Source quote'. The AI had to provide the exact sentence from the episode. When I click this quote link, the app scrolls right to where the speaker said it in the transcript!*
+  >
+  > *If I click a wrong answer on Question 2, it turns red and gently explains the correct answer.*
+  >
+  > *We also have 'Ask the Episode'. If I ask something from the episode—like 'What causes cable damage?'—it gives an accurate answer with a quote.*
+  >
+  > *But if I ask an off-topic question—like 'Who won the 2022 World Cup?'—it honestly says it won't answer because the episode doesn't cover it. It never guesses or hallucinates."*
 
 ---
 
-### Act 5: Isolated Section Revisions & Non-Destructive Undo
-- **Time:** `2:50 – 3:30` (40 seconds)
-- **Screen Action:**
-  - Switch back to the **Overview** tab.
-  - Point to the revision controls at the bottom of the section.
-  - Click the preset chip: **"Shorter"** (or type *"Make it 60 words"*).
-  - Click **Revise overview**.
-  - Show that a spinner appears **only** on the Overview section. Show that the Chapters and Quiz tabs are completely unaffected.
-  - Notice the revision banner: `Revised: "Make the summary much shorter...". Only this section was regenerated.`
-  - Immediately click **Undo last change** button.
-  - Show the original full-length overview instantly restored with a toast notification: *"Reverted to the previous version"*.
-- **What to SAY (Voiceover):**
-  > *"A critical requirement of the challenge is meaningful revision. Many AI tools force a full, expensive regeneration of the entire page.*
+### Step 5: Changing a Section (Revisions) & Instant Undo
+- **Time:** `3:00 – 3:40` (40 seconds)
+- **Mouse & Screen Actions:**
+  - Click back to the **Overview** tab.
+  - Scroll down to the bottom of the overview to the **Revise this section** card.
+  - **[HOVER]** over the quick preset chips:
+    - Hover over **Shorter**.
+    - Hover over **Simpler language**.
+    - Hover over **More detail**.
+  - **[CLICK]** on the **Shorter** preset chip.
+  - Click the **Revise overview** button.
+  - Show the spinner appear **only** inside the overview card.
+  - The new shorter overview appears with a yellow badge: `Revised: "Make the summary much shorter...". Only this section was regenerated.`
+  - Click on the **Quiz** tab and **Chapters** tab for a second to show they are **completely untouched**.
+  - Click back to Overview.
+  - **[HOVER]** over the **Undo last change** button.
+  - **[CLICK]** on **Undo last change**.
+  - Watch the original full-length overview instantly come back with a friendly notification: *Reverted to the previous version*!
+- **What to SAY (Simple English):**
+  > *"Another big requirement of this challenge is making meaningful revisions.*
   >
-  > *Here, revisions are strictly isolated. Watch as I click the preset chip 'Shorter'. Only the Overview is sent to the `/api/generate` endpoint. The chapters, quiz, and transcript remain completely untouched, saving API quota and preserving user state.*
+  > *Normally, AI tools force you to start over and re-generate everything. But in Podcast Companion, you can change just one section at a time.*
   >
-  > *The revision banner clearly indicates what changed. And if the user prefers the earlier version, our client-side state stack provides instant, non-destructive Undo with zero extra network latency."*
-- **What to DISCUSS (Engineering Context):**
-  - Revisions support both quick presets and custom free-text prompts, guarded by the exact same Pydantic schema and citation validators.
+  > *Down here, we have quick preset buttons: 'Shorter', 'Simpler language', or 'More detail'.*
+  >
+  > *Watch: I will click 'Shorter' and hit Revise. Only the Overview section is updated. The chapters and the quiz are completely untouched, which saves time and tokens.*
+  >
+  > *And if you change your mind? Just click this 'Undo' button. Instantly, our previous summary is restored without making another slow web call."*
 
 ---
 
-### Act 6: Live Empirical Model Comparison (Gemini vs. Groq)
-- **Time:** `3:30 – 4:10` (40 seconds)
-- **Screen Action:**
+### Step 6: Comparing Gemini vs. Groq Side-by-Side
+- **Time:** `3:40 – 4:15` (35 seconds)
+- **Mouse & Screen Actions:**
   - Click the **Compare models** tab in the main navigation.
-  - Point to the side-by-side benchmark table comparing **Google Gemini** (`gemini-3.1-flash-lite`) and **Groq** (`openai/gpt-oss-120b`).
-  - Highlight the real metrics:
-    - Overview Latency: `5.2 s` (Gemini) vs. `1.5 s` (Groq).
-    - Chapters Latency: `1.5 s` vs. `1.8 s`.
-    - Quiz Latency: `5.8 s` vs. `3.5 s`.
-    - Validation re-asks: `0` for both.
-    - Verified questions: `3 / 3` for both.
-  - Click the **Export comparison (.md)** button to show instant exportability.
-- **What to SAY (Voiceover):**
-  > *"The challenge also calls for a deep technical comparison of at least two options. Rather than just writing about it, we built a live side-by-side comparison engine directly into the product.*
+  - **[HOVER]** across the side-by-side comparison table:
+    - Point to column 1: **Google Gemini** (`gemini-3.1-flash-lite`).
+    - Point to column 2: **Groq** (`openai/gpt-oss-120b`).
+  - **[HOVER]** over the latency rows:
+    - Hover over Overview Time: `5.2 s` vs `1.5 s`.
+    - Hover over Chapters Time: `1.5 s` vs `1.8 s`.
+    - Hover over Quiz Time: `5.8 s` vs `3.5 s`.
+  - **[HOVER]** over the **Verified quiz questions**: `3 / 3` for both models.
+  - **[HOVER]** over the download buttons: **Export comparison (.md)** and **Export comparison (.json)**.
+- **What to SAY (Simple English):**
+  > *"The challenge also asked us to compare at least two technical options.*
   >
-  > *In the Compare Models tab, we run Google Gemini Flash-Lite against Groq's GPT-OSS-120B on the exact same transcript. Crucially, each provider is pinned with zero cross-fallback, guaranteeing an uncontaminated benchmark.*
+  > *Instead of just writing about it in a paper, we built a live model comparison tab directly into the website.*
   >
-  > *As you can see, Groq delivers sub-2-second inference speed, while Gemini provides superior context capacity for long multi-hour episodes. Both models passed 100% of our deterministic quote verifications with zero re-asks."*
-- **What to DISCUSS (Engineering Context):**
-  - Discuss the real-world discovery: Groq retired `llama-3.3-70b-versatile` on August 16, 2026; live benchmarking caught this and prompted the migration to `openai/gpt-oss-120b`.
+  > *Here, Google Gemini and Groq ran on the exact same podcast transcript with pinned models, meaning there is no hidden switching.*
+  >
+  > *Look at the numbers: Groq is extremely fast, answering in just 1.5 seconds. Meanwhile, Google Gemini is great because it has a huge memory window that can fit multi-hour podcasts.*
+  >
+  > *Most importantly, both models scored 100% on our quote verification check, showing that our verification system works reliably with any good AI model."*
 
 ---
 
-### Act 7: The 26-Test Suite Showcase & Security Guardrails
-- **Time:** `4:10 – 4:45` (35 seconds)
-- **Screen Action:**
-  - Switch smoothly to **Tab 2** (GitHub `README.md` at `## Test Execution Log & Visual Verification`).
-  - Scroll through the 7 test categories, showcasing the full-width high-resolution dark mode screenshots:
-    - *Group 1:* Built-in samples (plain text vs. timestamped).
-    - *Group 2:* File formats (Plato's `.txt`, Changelog `.md`, NASA `.srt`, LibriVox `.vtt`).
-    - *Group 3:* Real audio containers (MP3, WAV, MP4 video demux, FLAC, M4A, OGG, WebM, AAC).
-    - *Group 4 & 5:* Interactive quiz & revisions.
-    - *Group 6 & 7:* Model comparison and error guardrails.
-  - Switch back to **Tab 1** (Live app) and quickly demonstrate a live guardrail:
-    - Paste a short 3-word string: *"Hello podcast test"* → Click Generate → Show the red HTTP 422 alert: *"The transcript is too short (19 characters). Provide at least 200 characters."*
-    - (Optional) Attempt to upload a text file renamed to `.mp3` → Show magic-byte HTTP 415 rejection.
-- **What to SAY (Voiceover):**
-  > *"To ensure true production resilience, we designed and visually verified 26 distinct test cases across 7 categories in our README.*
+### Step 7: Showing the 26 Tests & Safety Guardrails
+- **Time:** `4:15 – 4:45` (30 seconds)
+- **Mouse & Screen Actions:**
+  - Smoothly switch to **Tab 2** (GitHub `README.md` open at `## Test Execution Log & Visual Verification`).
+  - Scroll through the 26 screenshot pictures slowly:
+    - Show Group 1 (Plain text & timestamped samples).
+    - Show Group 2 (Text documents: Plato, Changelog podcast, NASA subtitle files).
+    - Show Group 3 (All 8 audio file formats: MP3, WAV, MP4, FLAC, M4A, OGG, WebM, AAC).
+    - Show Group 7 (Error screenshots).
+  - Switch back to **Tab 1** (Live app) to show a live error guardrail:
+    - Click **Paste text**.
+    - Type just two words: *"Hello test"* (under 200 characters).
+    - Click **Build my companion**.
+    - Point to the red error banner: *The transcript is too short (10 characters). Provide at least 200 characters.*
+- **What to SAY (Simple English):**
+  > *"To be 100% sure this app is stable and battle-tested, we ran and took screenshots of **26 separate tests** across all features and file formats.*
   >
-  > *We tested every audio format, subtitle cues, and technical markdown documents like Plato and the Changelog podcast. We also engineered strict OWASP security guardrails.*
+  > *Here in our README, you can see dark-mode screenshots for every test: from reading Plato's writings and NASA astronaut subtitles, to converting video files into audio, all the way to testing eight different audio formats.*
   >
-  > *Watch this: if a user submits a tiny transcript under 200 characters, it fails fast with an informative HTTP 422 error before consuming any model tokens. And if someone renames a text file to .mp3, our backend magic-byte sniffer rejects it with HTTP 415 before ffmpeg or Whisper even touch it."*
-- **What to DISCUSS (Engineering Context):**
-  - Explain how the test suite includes 135 automated unit/integration tests running via `pytest` plus end-to-end browser tests in `jsdom`.
+  > *We also added smart safety guardrails. Watch this: if someone enters a tiny two-word snippet, the app immediately catches it with a clear, friendly error before wasting any AI budget.*
+  >
+  > *And if someone tries to upload a fake file—like a text file renamed to .mp3—our server checks the file header and safely rejects it."*
 
 ---
 
-### Act 8: Research PDF, Codebase Architecture & Wrap-Up
+### Step 8: Research PDF & Wrap Up
 - **Time:** `4:45 – 5:00` (15 seconds)
-- **Screen Action:**
-  - Switch to **Tab 3** (`RESEARCH.pdf` opened in browser).
-  - Scroll through the title page, the technology comparison table, and the OWASP security matrix.
-  - Switch back to Tab 1 / README top.
-  - Cursor resting on the clean app header.
-- **What to SAY (Voiceover):**
-  > *"Finally, our complete technical documentation—including our standalone Research Paper PDF, engineering notes on our 3 debugging case studies, and three prioritized next steps—is fully open-source in the GitHub repository.*
+- **Mouse & Screen Actions:**
+  - Switch to **Tab 3** (`RESEARCH.pdf`).
+  - Scroll past the clean title and the easy comparison tables.
+  - Switch back to Tab 1 (the live app results page).
+  - Rest mouse on the clean header.
+- **What to SAY (Simple English):**
+  > *"Finally, we compiled our research into a short, easy-to-read PDF, and our complete code with 135 passing tests is available on GitHub.*
   >
-  > *Thank you very much for your time, and I look forward to your feedback!"*
+  > *Thank you so much for watching, and I hope you enjoy using Podcast Companion!"*
 
 ---
 
-## 3. Quick Reference Card for the Presenter
+## 3. Presenter's Cheat Sheet (Keep this open next to you)
 
-Keep this small table beside you while recording:
-
-| Time | What to Click | What to Emphasize |
-|---|---|---|
-| `0:00` | Start on live Render app, click Model dropdown | Stateless, citation-grounded, dynamic API limits |
-| `0:35` | Audio tab → `.mp3` sample → Generate | Magic-byte sniffing, static ffmpeg, Whisper chunks |
-| `1:20` | Hover overview chips, click chapter card | Grounded citations, proportional strip, honest timestamps |
-| `2:05` | Quiz tab: 1 correct, 1 wrong, click quote; Ask tab | Instant scoring, quote verification, strict abstention |
-| `2:50` | Overview → Click 'Shorter' preset → Click 'Undo' | Isolated section regeneration, no waste, instant rollback |
-| `3:30` | Compare models tab | Side-by-side Gemini vs Groq, pinned models, no fallback |
-| `4:10` | Switch to README (26 tests) → Show short text error | 26 verified tests, 7 categories, HTTP 422 & 415 guardrails |
-| `4:45` | Switch to RESEARCH.pdf tab → Wrap up | Full compliance, 135 passing tests, thank reviewer |
-
----
-
-## 4. Post-Recording Quality Checklist
-
-Before uploading the video to Loom, YouTube, or Google Drive:
-- [ ] **Visual Clarity:** Can you clearly read the text in dark mode at 1080p?
-- [ ] **Pacing:** Did the recording stay within 4.5 to 5 minutes?
-- [ ] **Sound:** Is the voiceover loud, clear, and free of background hiss?
-- [ ] **Key Requirements Shown:**
-  - [x] Multimodal audio/text ingestion.
-  - [x] Overview with passage citations.
-  - [x] Proportional chapters jumping to transcript.
-  - [x] Interactive quiz scoring with verbatim quote jump.
-  - [x] Isolated section revision + non-destructive undo.
-  - [x] Gemini vs. Groq comparison table.
-  - [x] 26-test verification log with dark-mode screenshots.
-  - [x] Error guardrails (HTTP 422 / 415).
-  - [x] Standalone Research PDF shown.
+| Time | Where to Look | What to Click | What to Say in 1 Sentence |
+|---|---|---|---|
+| `0:00` | Tab 1 (App home) | Hover over tabs & Model menu | "Here is the website: clean dark design, accepts text, docs, or audio, and gives structured, verified summaries." |
+| `0:45` | Audio tab | Click `.mp3` sample → Generate | "We support 8 audio formats; let's run our 11-minute sample episode." |
+| `1:30` | Overview & Chapters | Hover over citation chips & chapter bar; click a chapter | "Notice citations on every takeaway; timeline blocks match time length, and clicking jumps right into the transcript." |
+| `2:15` | Quiz & Ask tab | Click 1 right, 1 wrong, click quote link; Ask 2 questions | "Quiz gives instant feedback and verified quotes; off-topic questions are politely refused." |
+| `3:00` | Overview revisions | Click 'Shorter' preset → Revise → Click 'Undo' | "You can revise just one section without redoing the rest, and Undo works instantly." |
+| `3:40` | Compare models tab | Hover over latency & questions row | "Groq is lightning fast; Gemini handles long episodes; both passed 100% of quote tests." |
+| `4:15` | Tab 2 (README tests) | Scroll screenshots → Tab 1: type 2 words to show error | "We proved all 26 test cases with screenshots, and added safety guardrails for short or bad files." |
+| `4:45` | Tab 3 (Research PDF) | Scroll PDF → Tab 1 wrap up | "All research notes, code, and 135 passing tests are on GitHub. Thank you!" |

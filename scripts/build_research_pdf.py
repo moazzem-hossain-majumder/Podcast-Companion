@@ -10,11 +10,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AI Engineering Challenge: Research & Technical Report</title>
+<title>Podcast Companion: Research & Engineering Findings</title>
 <style>
   @page {
     size: A4;
-    margin: 18mm 16mm 18mm 16mm;
+    margin: 16mm 15mm 16mm 15mm;
     @bottom-right {
       content: counter(page);
     }
@@ -22,15 +22,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #1e293b;
-    line-height: 1.55;
-    font-size: 10.5pt;
+    line-height: 1.5;
+    font-size: 10pt;
     margin: 0;
     padding: 0;
   }
   .header {
     border-bottom: 2px solid #0f766e;
-    padding-bottom: 12px;
-    margin-bottom: 24px;
+    padding-bottom: 10px;
+    margin-bottom: 18px;
   }
   .badge {
     display: inline-block;
@@ -39,77 +39,76 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     font-size: 8pt;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     padding: 3px 8px;
     border-radius: 4px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   h1 {
-    font-size: 20pt;
+    font-size: 18pt;
     color: #0f172a;
-    margin: 4px 0 6px 0;
+    margin: 4px 0 4px 0;
     font-weight: 800;
     letter-spacing: -0.02em;
   }
   .subtitle {
-    font-size: 11pt;
+    font-size: 10.5pt;
     color: #475569;
     margin-bottom: 8px;
   }
   .meta-grid {
     display: flex;
-    gap: 20px;
-    font-size: 9pt;
+    gap: 18px;
+    font-size: 8.5pt;
     color: #64748b;
-    margin-top: 8px;
+    margin-top: 6px;
   }
   .meta-grid strong {
     color: #334155;
   }
   h2 {
-    font-size: 13pt;
+    font-size: 12pt;
     color: #0f766e;
     border-bottom: 1px solid #cbd5e1;
-    padding-bottom: 4px;
-    margin-top: 24px;
-    margin-bottom: 10px;
+    padding-bottom: 3px;
+    margin-top: 18px;
+    margin-bottom: 8px;
     font-weight: 700;
     page-break-after: avoid;
   }
   h3 {
-    font-size: 11pt;
+    font-size: 10.5pt;
     color: #1e293b;
-    margin-top: 14px;
-    margin-bottom: 6px;
+    margin-top: 12px;
+    margin-bottom: 4px;
     font-weight: 600;
     page-break-after: avoid;
   }
   p {
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
   }
   ul, ol {
-    margin: 0 0 10px 0;
-    padding-left: 20px;
+    margin: 0 0 8px 0;
+    padding-left: 18px;
   }
   li {
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 12px 0 16px 0;
+    margin: 8px 0 12px 0;
     font-size: 9pt;
-    page-break-inside: avoid;
   }
   th, td {
     border: 1px solid #cbd5e1;
-    padding: 6px 10px;
+    padding: 6px 8px;
     text-align: left;
     vertical-align: top;
   }
   th {
     background-color: #f1f5f9;
-    font-weight: 600;
+    font-weight: 700;
     color: #0f172a;
   }
   tr:nth-child(even) td {
@@ -117,264 +116,242 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   }
   .callout {
     background-color: #f0fdf4;
-    border-left: 4px solid #0f766e;
-    padding: 10px 14px;
-    margin: 12px 0;
-    font-size: 9.5pt;
+    border-left: 4px solid #16a34a;
+    padding: 8px 12px;
+    margin: 8px 0 12px 0;
+    font-size: 9pt;
     border-radius: 0 4px 4px 0;
-    page-break-inside: avoid;
   }
-  .callout-title {
-    font-weight: 700;
-    color: #0f766e;
-    margin-bottom: 4px;
+  .callout strong {
+    color: #15803d;
   }
-  .code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 8.5pt;
-    background: #f1f5f9;
-    padding: 2px 4px;
-    border-radius: 3px;
-    color: #0f766e;
-  }
-  .page-break {
-    page-break-before: always;
+  .highlight-box {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin: 8px 0 12px 0;
   }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <span class="badge">AI Engineering Challenge &bull; Technical Report</span>
-  <h1>From Audio to Insight: AI Podcast Companion</h1>
-  <div class="subtitle">Comprehensive Research, Technology Evaluation, and Engineering Architecture</div>
+  <span class="badge">Thealon AI Engineering Challenge</span>
+  <h1>Podcast Companion: Research & Engineering Findings</h1>
+  <div class="subtitle">A clear, practical review of technical choices, reliability mechanisms, and real-world benchmarks</div>
   <div class="meta-grid">
     <div><strong>Author:</strong> Moazzem Hossain Majumder</div>
-    <div><strong>Studio:</strong> Thealon Animation Studios | Dhaka, Bangladesh</div>
-    <div><strong>Deployment:</strong> Render Cloud (Live)</div>
     <div><strong>Date:</strong> October 2026</div>
+    <div><strong>Live App:</strong> podcast-companion.onrender.com</div>
+    <div><strong>Code:</strong> GitHub Public Repository</div>
   </div>
 </div>
 
-<h2>1. Research Context & Problem Statement</h2>
-<p>According to <em>Edison Research's The UK Podcast Consumer 2025</em>, 71% of adults aged 16+ have listened to or watched podcasts, and over 51% consume podcasts monthly. While long-form spoken audio contains dense educational, philosophical, and technical narratives, it suffers from severe accessibility barriers:</p>
-<ul>
-  <li><strong>Information Inelasticity:</strong> Listeners cannot easily skim, search, or index spoken audio without linear playback.</li>
-  <li><strong>Unreliable Memory & Recall:</strong> Critical insights, arguments, and book recommendations are easily forgotten without synthesized takeaways.</li>
-  <li><strong>Verification Deficit:</strong> Generic LLM chat tools produce summaries that hallucinate facts or fail to point to exact audio cues where claims were made.</li>
-</ul>
+<h2>1. Why We Built This (User Value)</h2>
+<p>
+  Long podcasts are packed with valuable information, but remembering and finding specific points later is frustrating. Standard AI chatbots usually produce generic summaries that you cannot verify.
+</p>
 
-<div class="callout">
-  <div class="callout-title">Core Mission</div>
-  Transform unstructured spoken audio into a deterministic, interactive companion featuring structured summaries, verifiable chapter bounds, comprehension quizzes, and honest question-answering with verbatim citations.
+<div class="highlight-box">
+  <p style="margin-bottom: 4px;"><strong>Who benefits most:</strong></p>
+  <ul style="margin-bottom: 0;">
+    <li><strong>Students & Learners:</strong> Want to quickly review core ideas and test what they learned.</li>
+    <li><strong>Busy Listeners:</strong> Need to know in 2 minutes whether an 80-minute episode is worth hearing.</li>
+    <li><strong>Readers & Accessibility:</strong> People who retain information better through text than audio.</li>
+    <li><strong>Podcast Creators:</strong> Need chapter markers and quiz questions to engage their listeners.</li>
+  </ul>
 </div>
 
-<h2>2. User Value Analysis</h2>
-<p>We identified four primary user personas who benefit directly from this solution:</p>
+<p>
+  <strong>The Core Problem Solved:</strong> Instead of guessing, we answer: <em>"Where did the speaker actually say that, and can I trust it?"</em> Every takeaway, chapter, and quiz answer links directly to the exact words in the podcast transcript.
+</p>
+
+<h2>2. Technical Tools Compared</h2>
+<p>We tested multiple free tools to find the best combination for speed, reliability, and cost.</p>
+
+<h3>A. AI Text Models (Summaries, Chapters, Quiz)</h3>
 <table>
   <thead>
     <tr>
-      <th>User Persona</th>
-      <th>Primary Need</th>
-      <th>Companion Solution & Impact</th>
+      <th style="width: 25%;">Model</th>
+      <th style="width: 35%;">Key Strengths</th>
+      <th style="width: 25%;">Limitations</th>
+      <th style="width: 15%;">Our Verdict</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Active Learners & Students</strong></td>
-      <td>Study tool for technical or philosophical lectures.</td>
-      <td>Comprehension quizzes with instant feedback and direct links back to verbatim source passages.</td>
+      <td><strong>Google Gemini Flash</strong></td>
+      <td><strong>Huge context window:</strong> Reads 10+ hours in one call. Native JSON support. Generous free tier.</td>
+      <td>Free tier can experience queue delays during peak traffic hours.</td>
+      <td><strong>Primary Choice</strong> (handles long episodes).</td>
     </tr>
     <tr>
-      <td><strong>Time-Constrained Listeners</strong></td>
-      <td>Deciding whether a 90-minute recording is worth hearing.</td>
-      <td>~150-word overview, key themes, and takeaways readable in under 60 seconds.</td>
+      <td><strong>Groq (GPT-OSS-120B)</strong></td>
+      <td><strong>Super fast:</strong> Answers in 1 to 2 seconds. Reliable JSON mode.</td>
+      <td>Free tier has an 8,000 token per minute ceiling; cannot fit huge files.</td>
+      <td><strong>Fast Backup</strong> & comparison model.</td>
     </tr>
     <tr>
-      <td><strong>Accessibility & Reading-First Users</strong></td>
-      <td>Struggling to track rapid or accented spoken dialogue.</td>
-      <td>Clean transcript segmentation, responsive chapter timelines, and complete textual exploration.</td>
+      <td><strong>Hugging Face Router</strong></td>
+      <td>Provides access to diverse open-source models with one API key.</td>
+      <td>Free tier gives small monthly credits that can run out quickly.</td>
+      <td><strong>Secondary Fallback</strong>.</td>
     </tr>
     <tr>
-      <td><strong>Podcast Creators & Educators</strong></td>
-      <td>Producing show notes, chapter markers, and engagement.</td>
-      <td>One-click Markdown/JSON export formatted with exact timestamps for YouTube and podcast feeds.</td>
+      <td><strong>Local Models (Ollama)</strong></td>
+      <td>100% private with zero API rate limits.</td>
+      <td>Needs a powerful computer/GPU. Cannot run on free cloud servers (512MB RAM).</td>
+      <td><strong>Rejected</strong> for free cloud hosting.</td>
     </tr>
   </tbody>
 </table>
 
-<h2>3. Technology Choices & Comparative Evaluation</h2>
+<div class="callout">
+  <strong>Real-World Finding:</strong> AI models retire quickly! While developing, Groq retired <code>llama-3.3-70b-versatile</code>. Because our system makes real API calls, we caught this immediately and upgraded to <code>openai/gpt-oss-120b</code>.
+</div>
 
-<h3>3.1 Large Language Models (Summary, Chapters, Quiz, Q&A)</h3>
+<h3>B. Speech-to-Text (Audio Transcribers)</h3>
 <table>
   <thead>
     <tr>
-      <th>Provider & Model</th>
-      <th>Context & Features</th>
-      <th>Latency & Constraints</th>
-      <th>Evaluation Verdict</th>
+      <th style="width: 25%;">Transcriber</th>
+      <th style="width: 35%;">Key Strengths</th>
+      <th style="width: 25%;">Limitations</th>
+      <th style="width: 15%;">Our Verdict</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Google Gemini 3.1 Flash-Lite / 3.5 Flash</strong></td>
-      <td>~1M tokens context; native JSON schema enforcement; generous free tier.</td>
-      <td>2.0s–5.0s per section; free tier may train on inputs (disclosed to user).</td>
-      <td><strong>Primary Model:</strong> Accommodates full-length episodes in one prompt without chunking.</td>
+      <td><strong>Groq Whisper</strong></td>
+      <td><strong>Real timestamps:</strong> Second-by-second accuracy via <code>verbose_json</code>. Over 200x faster than real-time.</td>
+      <td>25 MB file size limit on free tier.</td>
+      <td><strong>Primary Choice</strong> (we compress and split audio into chunks).</td>
     </tr>
     <tr>
-      <td><strong>Groq (openai/gpt-oss-120b)</strong></td>
-      <td>Open-weight reasoning model via Groq LPU; sub-second token generation.</td>
-      <td>1.5s per section; strict 8K tokens/min free tier budget limits length.</td>
-      <td><strong>Fallback #1 & Benchmark:</strong> Ultra-low latency for short/medium episodes (&lt;24k chars).</td>
-    </tr>
-    <tr>
-      <td><strong>Hugging Face Inference Providers</strong></td>
-      <td>Multi-provider router (Llama 3.3 70B); OpenAI-compatible client.</td>
-      <td>HTTP 402 on credit exhaustion; latency varies by provider queue.</td>
-      <td><strong>Fallback #2:</strong> Provides tertiary redundancy if Google and Groq are down.</td>
-    </tr>
-    <tr>
-      <td><strong>Local Open-Source (llama.cpp)</strong></td>
-      <td>Fully offline and private.</td>
-      <td>Requires high GPU/RAM unavailable on free 512MB hosting instances.</td>
-      <td><strong>Rejected</strong> for deployed web service.</td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="page-break"></div>
-
-<h3>3.2 Automated Speech-to-Text (ASR) Pipeline</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Engine</th>
-      <th>Capabilities</th>
-      <th>Limitations</th>
-      <th>Verdict</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Groq Whisper (whisper-large-v3-turbo)</strong></td>
-      <td>~216x real-time speed; returns segment-level millisecond timestamps via <span class="code">verbose_json</span>.</td>
-      <td>25 MB file limit per API call on free tier.</td>
-      <td><strong>Primary ASR:</strong> Powers exact chapter timestamp generation.</td>
-    </tr>
-    <tr>
-      <td><strong>Google Gemini Audio Ingestion</strong></td>
-      <td>Direct audio processing without external transcription step.</td>
-      <td>Does not provide reliable segment timecodes; inline upload capped at 20MB.</td>
-      <td><strong>Text-Only Fallback:</strong> Used when Whisper is unavailable; UI honestly reports lack of times.</td>
+      <td><strong>Gemini Audio</strong></td>
+      <td>Handles many spoken languages well natively.</td>
+      <td>Timestamps are not dependable; inline audio capped at 20 MB.</td>
+      <td><strong>Backup Choice</strong> (drops timestamps honestly).</td>
     </tr>
     <tr>
       <td><strong>OpenAI Whisper API</strong></td>
-      <td>Reference implementation.</td>
-      <td>Paid service; challenge constraints forbid incurring unapproved costs.</td>
-      <td><strong>Rejected</strong> to honor zero-cost constraint.</td>
+      <td>High quality reference implementation.</td>
+      <td>Requires a paid credit card account.</td>
+      <td><strong>Rejected</strong> (breaks free-tier rule).</td>
     </tr>
   </tbody>
 </table>
 
-<h3>3.3 Hosting Platform Comparison</h3>
-<ul>
-  <li><strong>Vercel Serverless:</strong> Rejected due to a rigid <strong>4.5 MB request body cap</strong> that rejects real-world podcast files (20–100 MB).</li>
-  <li><strong>Hugging Face Spaces:</strong> Docker compute Spaces now require paid subscriptions for new users.</li>
-  <li><strong>Render Free Web Service:</strong> Selected. Provides native Docker/Python execution, up to 60 MB request streaming, and zero credit card requirement.</li>
-</ul>
-
-<h2>4. Grounding & Reliability Architecture</h2>
-<p>To eliminate hallucination and guarantee that all generated content is faithful to the source material, the system enforces a strict <strong>deterministic verification layer</strong> written in Python:</p>
-<ul>
-  <li><strong>Segment-Indexed Grounding:</strong> The transcript is tokenized into numbered passages (<span class="code">#1, #2, ...</span>). LLM outputs cite passage IDs rather than raw times. Real timestamps are resolved by Python lookups.</li>
-  <li><strong>Verbatim Quote Verification:</strong> Every quiz question and Ask response must contain an exact transcript quote. The server normalizes punctuation and whitespace to verify that the quote appears verbatim near the cited passage. Questions failing verification are purged.</li>
-  <li><strong>Server-Side Option Shuffling:</strong> Answer choices are shuffled programmatically to neutralize LLM positional biases (such as favoritism toward option B).</li>
-  <li><strong>Refusal Guardrail:</strong> In the Ask Q&A feature, questions that cannot be supported by the transcript are explicitly refused rather than hallucinated (verified in Test 18).</li>
-</ul>
-
-<h2>5. Measured Empirical Benchmark: Gemini vs. Groq</h2>
-<p>A live head-to-head evaluation was conducted on an identical 11-minute podcast transcript (1,770 words, 10,300 characters):</p>
+<h3>C. Cloud Hosting Platforms</h3>
 <table>
   <thead>
     <tr>
-      <th>Benchmark Metric</th>
-      <th>Google Gemini (gemini-3.1-flash-lite)</th>
-      <th>Groq (openai/gpt-oss-120b)</th>
-      <th>Analysis & Takeaway</th>
+      <th style="width: 25%;">Platform</th>
+      <th style="width: 55%;">Findings & Evaluation</th>
+      <th style="width: 20%;">Our Verdict</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Overview Latency</strong></td>
-      <td>5.2 seconds</td>
-      <td>1.5 seconds</td>
-      <td>Groq LPU achieves 3.4x faster time-to-completion.</td>
+      <td><strong>Render (Free Web Service)</strong></td>
+      <td>Runs Python and Docker smoothly without credit cards. Allows audio uploads without small file ceilings. Sleeps after 15 min idle.</td>
+      <td><strong>Chosen Host</strong> (Live on Render).</td>
     </tr>
     <tr>
-      <td><strong>Chapters Latency</strong></td>
-      <td>1.5 seconds</td>
-      <td>1.8 seconds</td>
-      <td>Comparable latency on structured chapter segmentation.</td>
+      <td><strong>Vercel</strong></td>
+      <td>Has a strict <strong>4.5 MB request body limit</strong>. Real podcast audio files are 20–60 MB, so Vercel blocks them.</td>
+      <td><strong>Rejected</strong> (cannot upload audio).</td>
     </tr>
     <tr>
-      <td><strong>Quiz Latency</strong></td>
-      <td>5.8 seconds</td>
-      <td>3.5 seconds</td>
-      <td>Groq was 1.6x faster on complex multi-choice extraction.</td>
-    </tr>
-    <tr>
-      <td><strong>Validation Re-asks</strong></td>
-      <td>0 re-asks (100% first-pass pass)</td>
-      <td>0 re-asks (100% first-pass pass)</td>
-      <td>Both models strictly adhered to Pydantic JSON schemas.</td>
-    </tr>
-    <tr>
-      <td><strong>Verified Quiz Questions</strong></td>
-      <td>6 of 6 verified</td>
-      <td>6 of 6 verified</td>
-      <td>100% of quotes matched transcript verbatim.</td>
-    </tr>
-    <tr>
-      <td><strong>Context Capacity</strong></td>
-      <td>150,000+ characters</td>
-      <td>&le; 24,000 characters</td>
-      <td>Gemini handles full episodes; Groq throttled on TPM budget.</td>
+      <td><strong>Hugging Face Spaces</strong></td>
+      <td>Free Docker compute spaces now require paid accounts for new users.</td>
+      <td><strong>Rejected</strong> (requires paid plan).</td>
     </tr>
   </tbody>
 </table>
 
-<div class="page-break"></div>
-
-<h2>6. Responsible AI Handling (OWASP API Security Lens)</h2>
+<h2>3. How We Keep Answers Trustworthy (Reliability)</h2>
+<p>Instead of hoping the AI doesn't hallucinate, our Python backend strictly checks everything:</p>
 <ul>
-  <li><strong>API Security & Secrets:</strong> Zero credentials exist in client-side code or public git history. All API keys are loaded via environment variables and injected as HTTP headers.</li>
-  <li><strong>Magic-Byte Sniffing:</strong> Uploaded audio files are inspected for binary magic bytes (<span class="code">ID3</span>, <span class="code">RIFF/WAVE</span>, <span class="code">fLaC</span>, <span class="code">OggS</span>, <span class="code">ftyp</span>) rather than trusting client MIME types or file extensions.</li>
-  <li><strong>Ephemeral Data Lifecycle:</strong> Audio chunks are transcoded in temporary scratch directories and immediately deleted post-transcription. No user transcripts are stored server-side.</li>
-  <li><strong>Resource Throttling:</strong> Per-IP sliding-window rate limiters and body streaming guards protect free-tier quotas against denial-of-service or quota exhaustion.</li>
+  <li><strong>Numbered Passages:</strong> The transcript is cut into numbered segments (Passage 1, Passage 2...). The AI must cite these numbers.</li>
+  <li><strong>Verbatim Quote Checks:</strong> For quizzes and Q&amp;A, the server searches the transcript to confirm the quote is real word-for-word. Ungrounded questions are discarded.</li>
+  <li><strong>Honest Timestamps:</strong> Timestamps come only from Whisper or subtitle files (<code>.srt</code>/<code>.vtt</code>). If plain text is uploaded, the app honestly displays <em>"No timestamps available"</em> instead of making up fake times.</li>
+  <li><strong>Server-Side Option Shuffling:</strong> AI models often put the right quiz answer as Option B. We randomize answer positions on the server to prevent bias.</li>
+  <li><strong>Abstaining on Out-of-Domain Questions:</strong> If a user asks something not in the podcast (like <em>"Who won the World Cup?"</em>), the system politely refuses instead of guessing.</li>
 </ul>
 
-<h2>7. Real-World Debugging Case Studies</h2>
+<h2>4. Safety & Security (OWASP Top 10 API Security)</h2>
+<ul>
+  <li><strong>File Header Checks (Magic Bytes):</strong> We inspect the binary header of uploaded files. Renaming a text or malicious file to <code>.mp3</code> is safely caught and rejected before reaching ffmpeg.</li>
+  <li><strong>Input Guardrails:</strong> Transcripts under 200 characters or over 150,000 characters are safely rejected with clear HTTP error codes.</li>
+  <li><strong>Privacy Notice:</strong> Users are informed upfront that free AI tiers may process their inputs, advising against submitting private passwords or confidential records.</li>
+  <li><strong>Secret Hygiene:</strong> Zero credentials are saved in code or GitHub; all API keys load securely from environment variables.</li>
+</ul>
+
+<h2>5. Measured Benchmark: Gemini vs. Groq Inside Our App</h2>
+<p>We ran both models head-to-head on the exact same 11-minute podcast transcript (about 10,300 characters). Both models were pinned with no hidden fallback:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 35%;">Benchmark Metric</th>
+      <th style="width: 32%;">Google Gemini Flash-Lite</th>
+      <th style="width: 33%;">Groq (GPT-OSS-120B)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Overview Generation Time</strong></td>
+      <td>5.2 seconds</td>
+      <td><strong>1.5 seconds</strong> (over 3x faster)</td>
+    </tr>
+    <tr>
+      <td><strong>Chapters Generation Time</strong></td>
+      <td>1.5 seconds</td>
+      <td>1.8 seconds</td>
+    </tr>
+    <tr>
+      <td><strong>Quiz Generation Time</strong></td>
+      <td>5.8 seconds</td>
+      <td><strong>3.5 seconds</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Verbatim Quote Check</strong></td>
+      <td><strong>100% Verified</strong> (3 of 3 questions)</td>
+      <td><strong>100% Verified</strong> (3 of 3 questions)</td>
+    </tr>
+    <tr>
+      <td><strong>Off-Topic Question Refusal</strong></td>
+      <td>Refused correctly (no guess)</td>
+      <td>Refused correctly (no guess)</td>
+    </tr>
+    <tr>
+      <td><strong>Maximum Episode Length</strong></td>
+      <td><strong>Huge</strong> (handles 10+ hour audio)</td>
+      <td>Medium (limited by 8K tokens/min)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  <strong>Takeaway:</strong> Groq is unmatched for speed (1.5 seconds), while Gemini is unmatched for episode length. Our <strong>Auto mode</strong> uses Groq for speed when possible, and smoothly relies on Gemini for long marathons.
+</p>
+
+<h2>6. Three Future Improvements (Next Steps)</h2>
 <ol>
-  <li><strong>CSP Inline Style Suppression:</strong> A strict Content-Security-Policy (<span class="code">style-src 'self'</span>) silently blocked <span class="code">setAttribute('style')</span>, rendering chapter bars as uniform blocks without error. <em>Fix:</em> Refactored DOM helper to assign <span class="code">el.style.cssText</span> via the CSSOM and added automated spy tests.</li>
-  <li><strong>Model Picker Event Detachment:</strong> Clicking the custom model picker destroyed and recreated the DOM button during the same event loop, causing <span class="code">event.target</span> to become detached and closing the menu instantly. <em>Fix:</em> Migrated to <span class="code">event.composedPath().includes(root)</span> and scoped re-renders to the menu only.</li>
-  <li><strong>Vendor Deprecation & Cooldown Backoff:</strong> Groq retired <span class="code">llama-3.3-70b-versatile</span> on 2026-08-16 without updating models documentation, causing immediate 500 errors. <em>Fix:</em> Upgraded default to <span class="code">openai/gpt-oss-120b</span>, added automated provider capability probing (<span class="code">scripts/check_providers.py</span>), and built short cooldown absorption for 8K TPM rate limits.</li>
+  <li><strong>Automated Truthfulness Testing (Highest Priority):</strong> An automated benchmark harness that checks if every summary claim strictly matches the podcast audio without any subtle drift.</li>
+  <li><strong>Durable Database & Shareable Links:</strong> Storing episode companions in a lightweight database so users can share permanent links with friends.</li>
+  <li><strong>Word-by-Word Streaming:</strong> Streaming tokens over Server-Sent Events (SSE) so users see summary sentences appear instantly as they are generated.</li>
 </ol>
-
-<h2>8. Technical References & Official Documentation</h2>
-<ul>
-  <li><strong>Google Gemini API:</strong> Model Deprecations (<a href="https://ai.google.dev/gemini-api/docs/deprecations">ai.google.dev/gemini-api/docs/deprecations</a>) & Rate Limits (<a href="https://ai.google.dev/gemini-api/docs/rate-limits">ai.google.dev/gemini-api/docs/rate-limits</a>)</li>
-  <li><strong>Groq Cloud Documentation:</strong> Speech-to-Text Whisper (<a href="https://console.groq.com/docs/speech-to-text">console.groq.com/docs/speech-to-text</a>) & Model Limits (<a href="https://console.groq.com/docs/rate-limits">console.groq.com/docs/rate-limits</a>)</li>
-  <li><strong>OWASP Foundation:</strong> API Security Top 10 Project (<a href="https://owasp.org/www-project-api-security/">owasp.org/www-project-api-security</a>)</li>
-  <li><strong>Edison Research:</strong> The UK Podcast Consumer 2025 (<a href="https://www.edisonresearch.com/">edisonresearch.com</a>)</li>
-</ul>
 
 </body>
 </html>
 """
 
 def generate_pdf():
-    print("Generating Research PDF...")
+    print("Generating simplified Research PDF...")
     with sync_playwright() as p:
         browser = p.chromium.launch(channel="msedge", headless=True)
         page = browser.new_page()
@@ -386,7 +363,7 @@ def generate_pdf():
         page.pdf(
             path=str(pdf_path_docs),
             format="A4",
-            margin={"top": "15mm", "bottom": "15mm", "left": "15mm", "right": "15mm"},
+            margin={"top": "14mm", "bottom": "14mm", "left": "14mm", "right": "14mm"},
             print_background=True,
         )
         print(f"Created: {pdf_path_docs}")
@@ -395,7 +372,7 @@ def generate_pdf():
         page.pdf(
             path=str(pdf_path_root),
             format="A4",
-            margin={"top": "15mm", "bottom": "15mm", "left": "15mm", "right": "15mm"},
+            margin={"top": "14mm", "bottom": "14mm", "left": "14mm", "right": "14mm"},
             print_background=True,
         )
         print(f"Created: {pdf_path_root}")
