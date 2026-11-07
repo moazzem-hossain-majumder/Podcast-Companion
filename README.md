@@ -1,5 +1,9 @@
 # Podcast Companion
 
+[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-moazzem--hossain--majumder.vercel.app-00a8ff?style=for-the-badge&logo=vercel&logoColor=white)](https://moazzem-hossain-majumder.vercel.app)
+[![License: MIT](https://img.shields.io/badge/LICENSE-MIT-007ec6?style=for-the-badge)](LICENSE)
+[![Live App: Render](https://img.shields.io/badge/RENDER-podcast--companion.onrender.com-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://podcast-companion.onrender.com)
+
 Turn a podcast transcript or recording into an interactive companion: a structured **overview**, **chapters** you can jump between, a **quiz** whose answers are checked against the source, and an **"ask the episode"** box that refuses to answer what the episode doesn't cover.
 
 **Live app:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) &nbsp;|&nbsp; **Video Walkthrough:** [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA) &nbsp;|&nbsp; **Research Paper:** [RESEARCH.pdf](RESEARCH.pdf) &nbsp;|&nbsp; AI Engineering Project.
