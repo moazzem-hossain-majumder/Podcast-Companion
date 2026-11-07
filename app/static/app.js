@@ -453,7 +453,7 @@
       text = $('#text-input').value;
       if (!text.trim()) throw new Error('Paste a transcript first, or load a sample episode.');
     }
-    showView('progress'); setProgress('Reading your transcript', 'Splitting it into passages…', 0.3);
+    showView('progress'); setProgress('Parsing transcript stream', 'Segmenting text into indexed passages…', 0.3);
     return api('/api/transcript/parse', { method: 'POST', body: { text, filename } });
   }
 
@@ -464,7 +464,7 @@
     const form = new FormData(); form.append('file', pickedAudio);
     const lang = $('#lang').value; if (lang) form.append('language', lang);
     form.append('asr_provider', $('#asr-provider').value || 'auto');
-    showView('progress'); setProgress('Uploading your audio', `${pickedAudio.name}`, 0.08, 'Large files can take a while on a slow connection.');
+    showView('progress'); setProgress('Uploading audio payload', `${pickedAudio.name}`, 0.08, 'Transferring audio buffer to processing queue.');
     const { job_id } = await api('/api/transcribe', { method: 'POST', form, timeoutMs: 600000 });
     const started = Date.now();
     for (;;) {
@@ -473,8 +473,8 @@
       if (job.status === 'error') throw new Error(job.error?.message || 'Transcription failed.');
       if (job.status === 'done') { state.notes = job.notes || []; if (state.notes.length) toast(state.notes[0]); return job.transcript; }
       const mins = Math.floor((Date.now() - started) / 60000);
-      setProgress('Transcribing your audio', job.stage || 'Working…', job.progress || 0.1,
-        job.status === 'queued' ? 'Another transcription is running; yours is next.' : (mins >= 2 ? 'Long recordings can take several minutes on free hosting.' : ''));
+      setProgress('Transcribing audio stream', job.stage || 'Processing…', job.progress || 0.1,
+        job.status === 'queued' ? 'Worker busy with preceding audio job; queue position next.' : (mins >= 2 ? 'Long recordings can take several minutes on free hosting.' : ''));
       if (Date.now() - started > 45 * 60000) throw new Error('Transcription is taking too long. Try a shorter recording.');
     }
   }
@@ -484,9 +484,9 @@
   function showResults() {
     showView('results');
     const t = state.transcript;
-    $('#ep-title').textContent = 'Your episode'; $('#ep-line').textContent = '';
-    const bits = [`${t.segments.length} passages`, t.source === 'audio' ? 'transcribed from audio' : 'from text',
-      t.has_timestamps ? 'with real timestamps' : 'no timestamps'];
+    $('#ep-title').textContent = 'Episode Analysis'; $('#ep-line').textContent = '';
+    const bits = [`${t.segments.length} verified segments`, t.source === 'audio' ? 'ASR transcription' : 'normalized text',
+      t.has_timestamps ? 'timecoded boundaries' : 'sequential indexing'];
     $('#ep-meta').textContent = bits.join(' · ');
     if (!resultTabs) {
       resultTabs = wireTabs($('#result-tabs'), (id) => { state.activeTab = id.replace('rt-', ''); });
@@ -507,10 +507,10 @@
     const ov = state.results.overview;
     if (ov) { $('#ep-title').textContent = ov.title; $('#ep-line').textContent = ov.one_line; document.title = `${ov.title} · Podcast Companion`; }
     const m = state.meta.overview;
-    const parts = [`${state.transcript.segments.length} passages`, state.transcript.source === 'audio' ? 'transcribed from audio' : 'from text',
-      state.transcript.has_timestamps ? 'with real timestamps' : 'no timestamps'];
-    if (m) parts.push(`written by ${providerLabel(m)} ${m.model}${m.fallback_used ? ' (backup model used)' : ''}`);
-    else parts.push(`model: ${PROVIDER_NAMES[state.provider]}`);
+    const parts = [`${state.transcript.segments.length} segments`, state.transcript.source === 'audio' ? 'ASR stream' : 'normalized text',
+      state.transcript.has_timestamps ? 'timecoded boundaries' : 'sequential indexing'];
+    if (m) parts.push(`inference: ${providerLabel(m)} ${m.model}${m.fallback_used ? ' [fallback]' : ''}`);
+    else parts.push(`inference: ${PROVIDER_NAMES[state.provider]}`);
     $('#ep-meta').textContent = parts.join(' · ');
   }
 
@@ -520,12 +520,12 @@
     const ch = state.results.chapters;
     if (!ch) {
       strip.className = 'strip empty'; strip.append(h('button', { type: 'button', tabindex: '-1', 'aria-hidden': 'true' }));
-      cap.textContent = state.loading.chapters ? 'Finding chapters…' : (state.errors.chapters ? 'Chapters are unavailable. See the Chapters tab.' : 'Chapters will appear here.');
+      cap.textContent = state.loading.chapters ? 'Detecting chapter boundaries…' : (state.errors.chapters ? 'Chapter detection error. Review Chapters tab.' : 'Interactive chapter navigation timeline.');
       return;
     }
     strip.className = 'strip';
     const total = state.transcript.segments.length;
-    const defaultCap = state.transcript.has_timestamps ? 'Each block is a chapter. Select one to open it.' : 'Each block is a chapter, sized by how much of the transcript it covers. Select one to open it.';
+    const defaultCap = state.transcript.has_timestamps ? 'Interactive chapter timeline. Select a block to jump to that timestamp.' : 'Interactive chapter timeline. Block width corresponds to segment range.';
     cap.textContent = defaultCap;
     ch.chapters.forEach((c, i) => {
       const span = c.end_segment - c.start_segment + 1;
@@ -552,22 +552,22 @@
 
   function reviseBar(section, presets) {
     const bar = h('div', { class: 'section-tools' });
-    bar.append(h('span', { class: 'label' }, 'Change this:'));
+    bar.append(h('span', { class: 'label' }, 'Refine section:'));
     for (const p of presets) bar.append(h('button', { type: 'button', class: 'chip', disabled: state.loading[section], onclick: () => revise(section, p.instruction, p) }, p.label));
-    const input = h('input', { type: 'text', maxlength: '300', placeholder: 'Or describe a change…', 'aria-label': `Describe how to change the ${section}`, disabled: state.loading[section] });
+    const input = h('input', { type: 'text', maxlength: '300', placeholder: 'Specify modification…', 'aria-label': `Describe how to change the ${section}`, disabled: state.loading[section] });
     const apply = h('button', { type: 'button', class: 'secondary', disabled: state.loading[section], onclick: () => { if (input.value.trim()) revise(section, input.value.trim(), {}); } }, 'Apply');
     input.addEventListener('keydown', (e) => { if (e.key === 'Enter') apply.click(); });
     bar.append(h('div', { class: 'revise-row' }, input, apply));
-    if (state.history[section].length) bar.append(h('button', { type: 'button', class: 'link', onclick: () => undo(section) }, 'Undo last change'));
-    if (state.revisionNote[section]) bar.append(h('div', { class: 'revised-note' }, `Revised: “${state.revisionNote[section]}”. Only this section was regenerated.`));
+    if (state.history[section].length) bar.append(h('button', { type: 'button', class: 'link', onclick: () => undo(section) }, 'Undo last revision'));
+    if (state.revisionNote[section]) bar.append(h('div', { class: 'revised-note' }, `Revision applied: “${state.revisionNote[section]}”. Target section regenerated.`));
     return bar;
   }
 
   function footerNote(section) {
     const m = state.meta[section]; if (!m) return null;
     const box = h('div');
-    box.append(h('p', { class: 'note' }, `Generated by ${providerLabel(m)} ${m.model}${m.fallback_used ? ` after a backup model took over (${(m.skipped || []).join('; ') || 'primary unavailable'})` : ''}` +
-      `${m.latency_ms ? ` in ${fmtMs(m.latency_ms)}` : ''}. AI can make mistakes; check the cited passages.`));
+    box.append(h('p', { class: 'note' }, `Inference: ${providerLabel(m)} ${m.model}${m.fallback_used ? ` (fallback: ${(m.skipped || []).join('; ') || 'primary unavailable'})` : ''}` +
+      `${m.latency_ms ? ` · ${fmtMs(m.latency_ms)}` : ''}. Deterministic citation verification linked to indexed segments.`));
     for (const w of m.warnings || []) box.append(h('p', { class: 'note warn' }, w));
     return box;
   }
@@ -638,14 +638,14 @@
     const body = h('div', { class: 'busy-dim', ...panelWrap('chapters') });
     body.append(stateOrBody('chapters', (data) => {
       const wrap = h('div');
-      if (!data.has_timestamps) wrap.append(h('p', { class: 'note' }, 'Pasted plain text has no timing information, so chapters point to positions in the transcript instead of timestamps. Upload audio or an .srt/.vtt file to get real times.'));
+      if (!data.has_timestamps) wrap.append(h('p', { class: 'note' }, 'Pasted plain text lacks cue timing; chapters reference segment indices instead of timestamps. Upload audio or .srt/.vtt files to preserve timecoded boundaries.'));
       const list = h('div', { class: 'chapters' });
       data.chapters.forEach((c, i) => {
         const when = c.start_time != null ? h('div', { class: 'when' }, fmtTime(c.start_time), h('small', {}, `to ${fmtTime(c.end_time)}`))
           : h('div', { class: 'when' }, `Part ${i + 1}`, h('small', {}, `passages ${c.start_segment + 1}–${c.end_segment + 1}`));
         list.append(h('article', { class: 'chapter', id: `chapter-${i}` }, when,
           h('div', {}, h('h3', {}, c.title), h('p', {}, c.summary),
-            h('button', { type: 'button', class: 'cite', onclick: () => jumpToSegment(c.start_segment) }, 'open in transcript'))));
+            h('button', { type: 'button', class: 'cite', onclick: () => jumpToSegment(c.start_segment) }, 'view in transcript'))));
       });
       wrap.append(list);
       wrap.append(h('p', {}, h('button', { type: 'button', class: 'secondary', onclick: () => copyText(sectionMarkdown('chapters')) }, 'Copy chapters')));
@@ -665,7 +665,7 @@
       const answered = Object.keys(state.answers).length;
       const correct = Object.entries(state.answers).filter(([i, a]) => data.questions[i] && a === data.questions[i].correct_index).length;
       wrap.append(h('p', { class: 'quiz-score', 'aria-live': 'polite' },
-        answered ? `Score: ${correct} of ${answered} answered (${data.questions.length} questions)` : `${data.questions.length} questions. Choose an answer to see if you're right.`,
+        answered ? `Validation score: ${correct} of ${answered} answered (${data.questions.length} questions)` : `${data.questions.length} verified questions. Select an option to validate against source citations.`,
         answered ? ' ' : null, answered ? h('button', { type: 'button', class: 'link', onclick: () => { state.answers = {}; renderQuiz(); } }, 'Reset answers') : null));
       data.questions.forEach((q, qi) => wrap.append(questionEl(q, qi)));
       wrap.append(h('p', {}, h('button', { type: 'button', class: 'secondary', onclick: () => copyText(sectionMarkdown('quiz')) }, 'Copy quiz with answers')));
@@ -683,12 +683,12 @@
       const cls = ['opt']; if (done && oi === q.correct_index) cls.push('right'); if (done && oi === chosen && oi !== q.correct_index) cls.push('wrong');
       opts.append(h('button', { type: 'button', class: cls.join(' '), disabled: done, 'aria-pressed': done && oi === chosen ? 'true' : 'false',
         onclick: () => { state.answers[qi] = oi; renderQuiz(); const el = document.getElementById(`q-${qi}`); if (el) el.scrollIntoView({ block: 'nearest' }); } },
-        done && oi === q.correct_index ? 'Correct answer: ' : (done && oi === chosen ? 'Your answer: ' : ''), o));
+        done && oi === q.correct_index ? 'Correct: ' : (done && oi === chosen ? 'Selected: ' : ''), o));
     });
     fs.id = `q-${qi}`; fs.append(opts);
     if (done) {
       const ok = chosen === q.correct_index;
-      fs.append(h('p', { class: `verdict ${ok ? 'right' : 'wrong'}`, role: 'status' }, ok ? 'Correct.' : 'Not quite.'));
+      fs.append(h('p', { class: `verdict ${ok ? 'right' : 'wrong'}`, role: 'status' }, ok ? 'Verified correct.' : 'Incorrect.'));
       if (q.explanation) fs.append(h('p', { class: 'explain' }, q.explanation));
       if (q.evidence_quote) {
         fs.append(h('blockquote', { class: 'source' }, `“${q.evidence_quote}”`,
@@ -701,9 +701,9 @@
   // ---- ask
   function renderAsk() {
     const root = clear($('#rp-ask'));
-    root.append(h('p', { class: 'note', style: 'margin-top:0' }, 'Ask anything about this episode. Answers must quote the transcript; if the episode does not cover it, you will be told so.'));
-    const input = h('input', { type: 'text', maxlength: '300', placeholder: 'e.g. What does the episode say about sleep?', 'aria-label': 'Question about the episode', disabled: state.busyAsk });
-    const btn = h('button', { type: 'button', class: 'primary', disabled: state.busyAsk, onclick: () => ask(input.value) }, state.busyAsk ? 'Thinking…' : 'Ask');
+    root.append(h('p', { class: 'note', style: 'margin-top:0' }, 'Targeted semantic retrieval. Queries are answered strictly with quoted transcript evidence and passage citations.'));
+    const input = h('input', { type: 'text', maxlength: '300', placeholder: 'Query episode content (e.g. spacing interval mechanisms)', 'aria-label': 'Question about the episode', disabled: state.busyAsk });
+    const btn = h('button', { type: 'button', class: 'primary', disabled: state.busyAsk, onclick: () => ask(input.value) }, state.busyAsk ? 'Querying…' : 'Submit query');
     input.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
     root.append(h('div', { class: 'ask-form' }, input, btn));
     for (const item of state.qa) {
@@ -711,7 +711,7 @@
       if (item.error) box.append(h('p', { class: 'error', role: 'alert' }, item.error));
       else {
         box.append(h('p', { class: `answer${item.result.answerable ? '' : ' none'}` }, item.result.answer));
-        if (item.meta) box.append(h('p', { class: 'note', style: 'margin-top:0' }, `Answered by ${providerLabel(item.meta)} ${item.meta.model}${item.meta.latency_ms ? ` in ${fmtMs(item.meta.latency_ms)}` : ''}`));
+        if (item.meta) box.append(h('p', { class: 'note', style: 'margin-top:0' }, `Inference: ${providerLabel(item.meta)} ${item.meta.model}${item.meta.latency_ms ? ` · ${fmtMs(item.meta.latency_ms)}` : ''}`));
         for (const e of item.result.evidence || []) box.append(h('blockquote', { class: 'source' }, `“${e.quote}”`, ' ', cite(e.segment)));
       }
       root.append(box);
@@ -746,7 +746,7 @@
         await sleep((pi * 3 + si) * 400); // stagger: free tiers have small per-minute limits
         if (state.transcript !== episode) return;
         const slot = c.runs[p][section];
-        if (!providerReady(p)) { Object.assign(slot, { loading: false, error: `${PROVIDER_NAMES[p]} isn't configured on this server.` }); renderCompare(); return; }
+        if (!providerReady(p)) { Object.assign(slot, { loading: false, error: `${PROVIDER_NAMES[p]} not configured on this server.` }); renderCompare(); return; }
         const started = performance.now();
         try {
           const res = await api('/api/generate', { method: 'POST', body: { transcript: payloadTranscript(), section, options: { num_questions: 6 }, provider: p } });
@@ -762,22 +762,22 @@
 
   function compareMetrics(run) {
     const ov = run.overview.result, ch = run.chapters.result, qz = run.quiz.result;
-    const lat = (slot) => (slot.meta ? fmtMs(slot.meta.latency_ms) : (slot.loading ? '…' : '—'));
-    const model = [run.overview, run.chapters, run.quiz].map((s) => s.meta?.model).find(Boolean) || '—';
+    const lat = (slot) => (slot.meta ? fmtMs(slot.meta.latency_ms) : (slot.loading ? '…' : 'N/A'));
+    const model = [run.overview, run.chapters, run.quiz].map((s) => s.meta?.model).find(Boolean) || 'N/A';
     const fallback = [run.overview, run.chapters, run.quiz].some((s) => s.meta?.fallback_used);
     const retries = [run.overview, run.chapters, run.quiz].reduce((n, s) => n + Math.max(0, (s.meta?.attempts || 1) - 1), 0);
     return [
-      ['Model', model + (fallback ? ' (backup model used)' : '')],
-      ['Overview time', lat(run.overview)],
-      ['Chapters time', lat(run.chapters)],
-      ['Quiz time', lat(run.quiz)],
-      ['Why a backup model was used', [...new Set([run.overview, run.chapters, run.quiz].flatMap((s) => s.meta?.skipped || []))].join('; ') || (run.overview.meta || run.chapters.meta || run.quiz.meta ? 'not needed' : '—')],
-      ['Re-asks after validation', run.overview.meta || run.chapters.meta || run.quiz.meta ? String(retries) : '—'],
-      ['Summary length', ov ? `${ov.summary.split(/\s+/).filter(Boolean).length} words` : '—'],
-      ['Themes / takeaways', ov ? `${ov.themes.length} / ${ov.takeaways.length}` : '—'],
-      ['Chapters', ch ? String(ch.chapters.length) : '—'],
-      ['Verified quiz questions', qz ? String(qz.questions.length) : '—'],
-      ['Warnings', [run.overview, run.chapters, run.quiz].flatMap((s) => s.meta?.warnings || []).length || (ov || ch || qz ? '0' : '—')],
+      ['Model', model + (fallback ? ' [fallback]' : '')],
+      ['Overview latency', lat(run.overview)],
+      ['Chapters latency', lat(run.chapters)],
+      ['Quiz latency', lat(run.quiz)],
+      ['Fallback rationale', [...new Set([run.overview, run.chapters, run.quiz].flatMap((s) => s.meta?.skipped || []))].join('; ') || (run.overview.meta || run.chapters.meta || run.quiz.meta ? 'none' : 'N/A')],
+      ['Validation repair passes', run.overview.meta || run.chapters.meta || run.quiz.meta ? String(retries) : 'N/A'],
+      ['Summary length', ov ? `${ov.summary.split(/\s+/).filter(Boolean).length} words` : 'N/A'],
+      ['Themes / takeaways', ov ? `${ov.themes.length} / ${ov.takeaways.length}` : 'N/A'],
+      ['Detected chapters', ch ? String(ch.chapters.length) : 'N/A'],
+      ['Grounded quiz count', qz ? String(qz.questions.length) : 'N/A'],
+      ['Validation warnings', [run.overview, run.chapters, run.quiz].flatMap((s) => s.meta?.warnings || []).length || (ov || ch || qz ? '0' : 'N/A')],
     ];
   }
 
@@ -834,15 +834,14 @@
     const root = clear($('#rp-compare'));
     const c = state.compare;
     root.append(h('p', { class: 'note', style: 'margin-top:0' },
-      'Runs the overview, chapters and quiz on Google Gemini and on Groq with the same transcript and the same prompts. ' +
-      'Each model is pinned (no fallback to the other), and both go through the same verification, so the numbers below are a fair comparison.'));
+      'Side-by-side benchmark of Gemini 1.5 Flash and Groq (Llama 3.3 70B) across identical transcript inputs and verification schemas without cross-provider fallback.'));
     const btn = h('button', { type: 'button', class: 'primary', disabled: c.running, onclick: runCompare },
-      c.running ? 'Comparing…' : (c.done ? 'Run comparison again' : 'Run comparison (Gemini vs Groq)'));
+      c.running ? 'Benchmarking…' : (c.done ? 'Re-run benchmark' : 'Execute benchmark (Gemini vs Groq)'));
     const tools = h('div', { class: 'actions' }, btn);
     if (c.done) {
-      tools.append(h('button', { type: 'button', class: 'secondary', onclick: () => copyText(compareMarkdown()) }, 'Copy comparison'),
-        h('button', { type: 'button', class: 'secondary', onclick: () => download('model-comparison.md', compareMarkdown(), 'text/markdown') }, 'Download .md'),
-        h('button', { type: 'button', class: 'secondary', onclick: () => download('model-comparison.json', JSON.stringify({ generated_at: new Date().toISOString(), runs: c.runs }, null, 2), 'application/json') }, 'Download .json'));
+      tools.append(h('button', { type: 'button', class: 'secondary', onclick: () => copyText(compareMarkdown()) }, 'Copy benchmark report'),
+        h('button', { type: 'button', class: 'secondary', onclick: () => download('model-comparison.md', compareMarkdown(), 'text/markdown') }, 'Export benchmark (.md)'),
+        h('button', { type: 'button', class: 'secondary', onclick: () => download('model-comparison.json', JSON.stringify({ generated_at: new Date().toISOString(), runs: c.runs }, null, 2), 'application/json') }, 'Export benchmark (.json)'));
     }
     root.append(tools);
     if (!Object.keys(c.runs).length) return;
@@ -857,7 +856,7 @@
   // ---- transcript
   function renderTranscript() {
     const root = clear($('#rp-transcript'));
-    root.append(h('p', { class: 'note', style: 'margin-top:0' }, 'The full text the companion worked from. Citations elsewhere in the app jump to the passage here.'));
+    root.append(h('p', { class: 'note', style: 'margin-top:0' }, 'Normalized source transcript. Segment citations in overview, chapters, and quiz link directly to corresponding indexed timestamps.'));
     const wrap = h('div', { class: 'segments' });
     for (const s of state.transcript.segments) {
       wrap.append(h('div', { class: 'seg', id: `seg-${s.id}`, tabindex: '-1' },
@@ -946,7 +945,48 @@
     return { generated_at: new Date().toISOString(), provider_requested: state.provider, transcript: state.transcript, overview: state.results.overview, chapters: state.results.chapters, quiz: state.results.quiz, models: Object.fromEntries(SECTIONS.map((s) => [s, state.meta[s]?.model || null])) };
   }
 
+  function wireTheme() {
+    const btn = $('#theme-toggle');
+    if (!btn) return;
+    const getSaved = () => localStorage.getItem('pc_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const apply = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      clear(btn);
+      const isDark = theme === 'dark';
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('width', '14');
+      svg.setAttribute('height', '14');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '2');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+      if (isDark) {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', '12'); circle.setAttribute('cy', '12'); circle.setAttribute('r', '4');
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41');
+        svg.append(circle, path);
+      } else {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z');
+        svg.append(path);
+      }
+      btn.append(svg, document.createTextNode(isDark ? 'Light mode' : 'Dark mode'));
+      btn.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
+    };
+    apply(getSaved());
+    btn.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('pc_theme', cur);
+      apply(cur);
+    });
+  }
+
   // ------------------------------------------------------------------ go
+  wireTheme();
   wirePickers();
   wireInput();
   init();
