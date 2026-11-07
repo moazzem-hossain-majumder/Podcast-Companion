@@ -1,12 +1,16 @@
 # Podcast Companion
 
-[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-moazzem--hossain--majumder.vercel.app-00a8ff?style=for-the-badge&logo=vercel&logoColor=white)](https://moazzem-hossain-majumder.vercel.app)
+[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-MOAZZEM--HOSSAIN--MAJUMDER.VERCEL.APP-38bdf8?style=for-the-badge&logo=vercel&logoColor=white)](https://moazzem-hossain-majumder.vercel.app)
 [![License: MIT](https://img.shields.io/badge/LICENSE-MIT-007ec6?style=for-the-badge)](LICENSE)
 [![Live App: Render](https://img.shields.io/badge/RENDER-podcast--companion.onrender.com-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://podcast-companion.onrender.com)
 
 Turn a podcast transcript or recording into an interactive companion: a structured **overview**, **chapters** you can jump between, a **quiz** whose answers are checked against the source, and an **"ask the episode"** box that refuses to answer what the episode doesn't cover.
 
-**Live app:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) &nbsp;|&nbsp; **Video Walkthrough:** [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA) &nbsp;|&nbsp; **Research Paper:** [RESEARCH.pdf](RESEARCH.pdf) &nbsp;|&nbsp; AI Engineering Project.
+**Live app:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) &nbsp;|&nbsp; **Interactive Demo:** [docs/demo.gif](docs/demo.gif) &nbsp;|&nbsp; **Research Paper:** [RESEARCH.pdf](RESEARCH.pdf) &nbsp;|&nbsp; AI Engineering Project.
+
+<p align="center">
+  <img src="docs/demo.gif" alt="Podcast Companion Interactive Walkthrough" width="100%">
+</p>
 
 ## What it does
 
@@ -163,7 +167,7 @@ The challenge specification details 6 mandatory functional requirements:
 - **How It Was Followed & Implemented:**
   1. **Working, Deployed Application:** Live at [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com).
   2. **Public Git Repository:** Hosted at [moazzem-hossain-majumder/Podcast-Companion](https://github.com/moazzem-hossain-majumder/Podcast-Companion).
-  3. **Demonstration Video:** Published on YouTube: [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA).
+  3. **Interactive Demonstration:** Animated high-resolution walkthrough embedded in repository: [`docs/demo.gif`](docs/demo.gif).
   4. **Research Document:** Compiled into **[`RESEARCH.pdf`](RESEARCH.pdf)**.
   5. **Engineering Notes:** Complete technical log in [`docs/ENGINEERING.md`](docs/ENGINEERING.md).
   6. **Three Prioritized Next Steps:** Fully detailed in README (Faithfulness Harness, Durable Persistence, Hierarchical Summarization & SSE).
@@ -211,7 +215,7 @@ The challenge specification details 6 mandatory functional requirements:
   - [x] **Engineering Notes:** `docs/ENGINEERING.md` with architecture diagrams and 3 debugging case studies.
   - [x] **Automated Test Suite:** 135 unit and integration tests passing (`pytest -q`).
   - [x] **26 Visual Verification Screenshots:** All test cases documented with dark-mode screenshots in README.
-  - [x] **Video Demonstration:** Published on YouTube at [https://youtu.be/EvU0fI3n5sA](https://youtu.be/EvU0fI3n5sA).
+  - [x] **Interactive Demonstration:** Full end-to-end walkthrough animated in [`docs/demo.gif`](docs/demo.gif).
   - [x] **Model Comparison:** Live side-by-side benchmark between Google Gemini and Groq.
   - [x] **Zero Credential Exposure:** Verified clean git history and `.env` ignore rules.
   - [x] **Three Prioritized Improvements:** Defined with technical rationale and impact analysis.
