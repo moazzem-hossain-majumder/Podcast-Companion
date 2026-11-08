@@ -326,6 +326,10 @@ def create_app(settings: Optional[Settings] = None, llm: Optional[LLMClient] = N
             return error_response("not_found", "That transcription job doesn't exist or has expired.", 404)
         return job.public()
 
+    @app.get("/specification")
+    async def specification():
+        return FileResponse(STATIC_DIR / "specification.html")
+
     # The UI. Mounted last so it never shadows /api/*.
     app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="ui")
     return app

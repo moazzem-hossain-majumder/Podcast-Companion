@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pipeline Specification & Grounding Architecture · Podcast Companion</title>
+  <meta name="description" content="Technical architecture, RFC 8259 schema contract, and deterministic grounding pipeline specification for Podcast Companion.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap">
+  <link rel="stylesheet" href="/styles.css?v=2.3">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f766e'/%3E%3Crect x='6' y='13' width='3' height='6' rx='1' fill='white'/%3E%3Crect x='11' y='9' width='3' height='14' rx='1' fill='white'/%3E%3Crect x='16' y='5' width='3' height='22' rx='1' fill='white'/%3E%3Crect x='21' y='10' width='3' height='12' rx='1' fill='white'/%3E%3Crect x='26' y='14' width='3' height='4' rx='1' fill='white'/%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="top">
+    <a href="/" class="brand brand-link">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="12" width="3" height="8" rx="1.5"/><rect x="9" y="8" width="3" height="16" rx="1.5"/><rect x="15" y="3" width="3" height="26" rx="1.5"/><rect x="21" y="9" width="3" height="14" rx="1.5"/><rect x="27" y="13" width="3" height="6" rx="1.5"/></svg>
+      <span>Podcast Companion</span>
+    </a>
+    <div class="header-actions">
+      <a href="/" class="spec-btn" id="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span>Back to companion</span>
+      </a>
+      <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Toggle dark mode">
+        <svg class="theme-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <span>Dark mode</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="spec-page">
+    <div class="spec-tag">System Architecture & Technical Specification</div>
+    <h1>Pipeline Specification & Grounding Contract</h1>
+    <p class="lede">Formal specifications, RFC 8259 schema contracts, validation heuristics, and runtime operational constraints governing transcript ingestion, deterministic grounding, and multi-model LLM inference.</p>
+
+    <!-- ============ MAIN ARTIFACT PANEL ============ -->
+    <div class="artifact-panel spec-panel-wrap">
+      <div class="artifact-header">
+        <span>PIPELINE SPECIFICATION</span>
+        <span class="artifact-status">DETERMINISTIC GROUNDING</span>
+      </div>
+
+      <div class="pipeline-flow">
+        <div class="flow-step">
+          <span class="step-num">01</span>
+          <div class="step-content">
+            <div class="step-title">Ingest & Boundary Alignment</div>
+            <div class="step-desc">FFmpeg 16 kHz mono normalization; Groq Whisper large-v3 word timestamps or .srt/.vtt cue indexing into segments S0..Sn. Timestamps originate strictly from ASR or cue markers, never from LLM synthesis.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <span class="step-num">02</span>
+          <div class="step-content">
+            <div class="step-title">Multi-Provider Inference Chain</div>
+            <div class="step-desc">Gemini 1.5 Flash / Groq (Llama 3.3 70B / gpt-oss-120b) execution with automatic rate-limit cooldown, JSON schema repair, and provider fallback across Google AI Studio, Groq Cloud, and HuggingFace.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <span class="step-num">03</span>
+          <div class="step-content">
+            <div class="step-title">Deterministic Grounding Engine</div>
+            <div class="step-desc">Strict n-gram substring verification. Uncited claims and unsupported quiz evidence are automatically purged. If quote verification fails, the model is re-prompted with specific missing quotes before trying fallback providers.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="artifact-header sub">
+        <span>SCHEMA CONTRACT (RFC 8259)</span>
+        <span>JSON</span>
+      </div>
+
+      <pre class="schema-preview"><code>{
+  <span class="key">"overview"</span>: {
+    <span class="key">"title"</span>: <span class="str">"Memory & Forgetting Curves"</span>,
+    <span class="key">"one_line"</span>: <span class="str">"Experimental analysis of retention intervals and active retrieval."</span>,
+    <span class="key">"summary"</span>: <span class="str">"Summary text synthesising key discussions across the episode."</span>,
+    <span class="key">"themes"</span>: [
+      { <span class="key">"name"</span>: <span class="str">"Spacing Effect"</span>, <span class="key">"description"</span>: <span class="str">"Distribution of practice over time."</span> }
+    ],
+    <span class="key">"takeaways"</span>: [
+      { <span class="key">"text"</span>: <span class="str">"Decay rate slows with spaced recall."</span>, <span class="key">"evidence"</span>: [<span class="num">12</span>, <span class="num">14</span>] }
+    ]
+  },
+  <span class="key">"chapters"</span>: [
+    { <span class="key">"title"</span>: <span class="str">"Ebbinghaus Experiment Protocol"</span>, <span class="key">"start_time"</span>: <span class="num">184.2</span>, <span class="key">"segment"</span>: <span class="num">12</span> }
+  ],
+  <span class="key">"quiz"</span>: [
+    {
+      <span class="key">"question"</span>: <span class="str">"What interval produces peak recall?"</span>,
+      <span class="key">"options"</span>: [<span class="str">"Spaced daily intervals"</span>, <span class="str">"Massed cramming"</span>, <span class="str">"Continuous passive rereading"</span>, <span class="str">"No review"</span>],
+      <span class="key">"correct_index"</span>: <span class="num">0</span>,
+      <span class="key">"explanation"</span>: <span class="str">"Interleaving review intervals enables durable neural consolidation."</span>,
+      <span class="key">"evidence_quote"</span>: <span class="str">"study spread over several days produces much better recall weeks later"</span>,
+      <span class="key">"evidence_segment"</span>: <span class="num">24</span>
+    }
+  ]
+}</code></pre>
+
+      <div class="specs-grid">
+        <div class="spec-cell">
+          <span class="spec-label">Payload limit</span>
+          <span class="spec-val">60 MB audio / 2 MB text</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Audio codecs</span>
+          <span class="spec-val">MP3, M4A, WAV, FLAC, OGG, AAC</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Verification</span>
+          <span class="spec-val">100% strict substring match</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Persistence</span>
+          <span class="spec-val">Zero server-side retention</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DETAILED SPECIFICATIONS ============ -->
+    <div class="spec-section">
+      <h2>Deterministic Grounding & Verification Rules</h2>
+      <p>Language models propose structured outputs; deterministic Python code verifies evidence before rendering to the listener.</p>
+      
+      <div class="spec-table-wrap">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Verification Heuristic</th>
+              <th>Failure Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Timestamps</strong></td>
+              <td>Read directly from Whisper word-level timestamps or WebVTT / SRT cue markers. Never requested from the LLM.</td>
+              <td>Absent timestamps explicitly flagged in UI; passage bounds displayed instead.</td>
+            </tr>
+            <tr>
+              <td><strong>Quiz Evidence</strong></td>
+              <td>Verbatim quote must match transcript text near cited segment (Unicode-aware, case/punctuation-insensitive).</td>
+              <td>Discard ungrounded question. If &lt; 3 survive, re-ask model with exact quote mismatch details.</td>
+            </tr>
+            <tr>
+              <td><strong>Takeaway Citations</strong></td>
+              <td>Citations must map to valid integer segment IDs present in the ingestion index.</td>
+              <td>Uncited takeaways are purged prior to presentation.</td>
+            </tr>
+            <tr>
+              <td><strong>Source Q&A</strong></td>
+              <td>Answers must include verbatim quote found in source transcript.</td>
+              <td>Downgraded to honest refusal: <em>"The provided transcript does not contain information about this."</em></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <h2>Inference SLA & Provider Fallback Matrix</h2>
+      <p>Automatic failover ensures continuous availability across free-tier quota windows and transient network anomalies.</p>
+
+      <div class="spec-table-wrap">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>Primary Model</th>
+              <th>Context Limit</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Google Gemini</strong></td>
+              <td><code>gemini-3.5-flash</code> / <code>gemini-3.1-flash-lite</code></td>
+              <td>150,000 chars</td>
+              <td>Primary fast structured synthesis engine with large multimodal context headroom.</td>
+            </tr>
+            <tr>
+              <td><strong>Groq Cloud</strong></td>
+              <td><code>openai/gpt-oss-120b</code> / <code>llama-3.3-70b-versatile</code></td>
+              <td>24,000 chars</td>
+              <td>Ultra-low-latency LPU inference provider with automatic token budget guardrails.</td>
+            </tr>
+            <tr>
+              <td><strong>HuggingFace</strong></td>
+              <td><code>Qwen/Qwen2.5-72B-Instruct</code></td>
+              <td>32,000 chars</td>
+              <td>Secondary router backup for prompt-instructed JSON extraction.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="spec-footer">
+      <span>Podcast Companion · Specification RFC 8259</span>
+      <a href="/" class="spec-back-link">← Return to application</a>
+    </div>
+  </main>
+
+  <script src="/spec.js?v=2.3" defer></script>
+</body>
+</html>

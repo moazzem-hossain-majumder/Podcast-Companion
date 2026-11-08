@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap">
-  <link rel="stylesheet" href="/styles.css?v=2.2">
+  <link rel="stylesheet" href="/styles.css?v=2.3">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f766e'/%3E%3Crect x='6' y='13' width='3' height='6' rx='1' fill='white'/%3E%3Crect x='11' y='9' width='3' height='14' rx='1' fill='white'/%3E%3Crect x='16' y='5' width='3' height='22' rx='1' fill='white'/%3E%3Crect x='21' y='10' width='3' height='12' rx='1' fill='white'/%3E%3Crect x='26' y='14' width='3' height='4' rx='1' fill='white'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -19,6 +19,10 @@
       <span>Podcast Companion</span>
     </div>
     <div class="header-actions">
+      <a href="/specification" class="spec-btn" id="spec-link" title="Pipeline Specification and Architecture">
+        <svg class="spec-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span>Specification</span>
+      </a>
       <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Toggle dark mode">
         <svg class="theme-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
         <span>Dark mode</span>
@@ -37,142 +41,68 @@
         <p class="lede">Ingests raw audio streams or text transcripts, aligns segment boundaries via Whisper or subtitle cues, and executes structured LLM extraction with deterministic citation verification against source timestamps.</p>
       </div>
 
-      <div class="hero-split">
-        <div class="hero-console">
-          <div class="tabs" role="tablist" aria-label="Input ingestion mode" id="input-tabs">
-            <button role="tab" id="tab-text" aria-controls="pane-text" aria-selected="true" type="button">Paste text</button>
-            <button role="tab" id="tab-file" aria-controls="pane-file" aria-selected="false" tabindex="-1" type="button">Transcript file</button>
-            <button role="tab" id="tab-audio" aria-controls="pane-audio" aria-selected="false" tabindex="-1" type="button">Audio file</button>
+      <div class="hero-console">
+        <div class="tabs" role="tablist" aria-label="Input ingestion mode" id="input-tabs">
+          <button role="tab" id="tab-text" aria-controls="pane-text" aria-selected="true" type="button">Paste text</button>
+          <button role="tab" id="tab-file" aria-controls="pane-file" aria-selected="false" tabindex="-1" type="button">Transcript file</button>
+          <button role="tab" id="tab-audio" aria-controls="pane-audio" aria-selected="false" tabindex="-1" type="button">Audio file</button>
+        </div>
+
+        <div id="pane-text" role="tabpanel" aria-labelledby="tab-text">
+          <label for="text-input" class="sr-only">Transcript text</label>
+          <textarea id="text-input" rows="10" spellcheck="false" placeholder="Paste transcript text here. Speaker labels and timestamps formatted like [12:34] are parsed into segment boundaries."></textarea>
+          <div class="field-foot"><span id="char-count" aria-live="off">0 characters</span></div>
+          <div class="sample-row" data-mode="paste" aria-label="Sample transcripts to paste"></div>
+        </div>
+
+        <div id="pane-file" role="tabpanel" aria-labelledby="tab-file" hidden>
+          <label class="drop" for="file-input" id="file-drop">
+            <input id="file-input" type="file" accept=".txt,.md,.srt,.vtt,text/plain,text/vtt">
+            <span class="drop-title" id="file-name">Select transcript file (.txt, .md, .srt, .vtt)</span>
+            <span class="drop-hint">Subtitle files preserve word-level cue timestamps.</span>
+          </label>
+          <div class="sample-row" data-mode="file" aria-label="Sample transcript files"></div>
+        </div>
+
+        <div id="pane-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
+          <label class="drop" for="audio-input" id="audio-drop">
+            <input id="audio-input" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.flac,.webm,.aac,.mp4">
+            <span class="drop-title" id="audio-name">Select audio stream</span>
+            <span class="drop-hint" id="audio-hint"></span>
+          </label>
+          <div class="sample-row" data-mode="audio" aria-label="Sample audio files"></div>
+          <div class="inline-field">
+            <label for="asr-provider">ASR engine</label>
+            <select id="asr-provider">
+              <option value="auto">Auto (Groq Whisper large-v3 with Gemini backup)</option>
+              <option value="groq">Groq Whisper large-v3 (timecoded)</option>
+              <option value="gemini">Google Gemini 1.5 Flash (multimodal)</option>
+            </select>
           </div>
-
-          <div id="pane-text" role="tabpanel" aria-labelledby="tab-text">
-            <label for="text-input" class="sr-only">Transcript text</label>
-            <textarea id="text-input" rows="10" spellcheck="false" placeholder="Paste transcript text here. Speaker labels and timestamps formatted like [12:34] are parsed into segment boundaries."></textarea>
-            <div class="field-foot"><span id="char-count" aria-live="off">0 characters</span></div>
-            <div class="sample-row" data-mode="paste" aria-label="Sample transcripts to paste"></div>
-          </div>
-
-          <div id="pane-file" role="tabpanel" aria-labelledby="tab-file" hidden>
-            <label class="drop" for="file-input" id="file-drop">
-              <input id="file-input" type="file" accept=".txt,.md,.srt,.vtt,text/plain,text/vtt">
-              <span class="drop-title" id="file-name">Select transcript file (.txt, .md, .srt, .vtt)</span>
-              <span class="drop-hint">Subtitle files preserve word-level cue timestamps.</span>
-            </label>
-            <div class="sample-row" data-mode="file" aria-label="Sample transcript files"></div>
-          </div>
-
-          <div id="pane-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
-            <label class="drop" for="audio-input" id="audio-drop">
-              <input id="audio-input" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.flac,.webm,.aac,.mp4">
-              <span class="drop-title" id="audio-name">Select audio stream</span>
-              <span class="drop-hint" id="audio-hint"></span>
-            </label>
-            <div class="sample-row" data-mode="audio" aria-label="Sample audio files"></div>
-            <div class="inline-field">
-              <label for="asr-provider">ASR engine</label>
-              <select id="asr-provider">
-                <option value="auto">Auto (Groq Whisper large-v3 with Gemini backup)</option>
-                <option value="groq">Groq Whisper large-v3 (timecoded)</option>
-                <option value="gemini">Google Gemini 1.5 Flash (multimodal)</option>
-              </select>
-            </div>
-            <div class="inline-field">
-              <label for="lang">Source language</label>
-              <select id="lang">
-                <option value="">Detect automatically</option>
-                <option value="en">English</option><option value="bn">Bengali</option><option value="hi">Hindi</option>
-                <option value="ur">Urdu</option><option value="ar">Arabic</option><option value="es">Spanish</option>
-                <option value="fr">French</option><option value="de">German</option><option value="pt">Portuguese</option>
-                <option value="id">Indonesian</option><option value="ja">Japanese</option><option value="zh">Chinese</option>
-              </select>
-            </div>
-          </div>
-
-          <p class="limits" id="limits">Loading runtime constraints…</p>
-
-          <div class="actions">
-            <button id="build" class="primary" type="button">Process episode</button>
-            <div class="mp" id="model-input" data-align="left"></div>
-          </div>
-          <p class="hint" id="model-hint">Select inference model for extraction, or run side-by-side benchmark comparison across Gemini and Groq after processing.</p>
-          <p id="input-error" class="error" role="alert" hidden></p>
-
-          <div class="privacy">
-            <strong>Data handling:</strong> Audio buffers and transcript payloads are transmitted directly to model inference endpoints (Google Gemini, Groq) via TLS. Audio streams are buffered in temporary memory and purged immediately upon transcription completion. No user inputs are persisted server-side.
+          <div class="inline-field">
+            <label for="lang">Source language</label>
+            <select id="lang">
+              <option value="">Detect automatically</option>
+              <option value="en">English</option><option value="bn">Bengali</option><option value="hi">Hindi</option>
+              <option value="ur">Urdu</option><option value="ar">Arabic</option><option value="es">Spanish</option>
+              <option value="fr">French</option><option value="de">German</option><option value="pt">Portuguese</option>
+              <option value="id">Indonesian</option><option value="ja">Japanese</option><option value="zh">Chinese</option>
+            </select>
           </div>
         </div>
 
-        <aside class="hero-artifact" aria-label="Pipeline architecture and specification">
-          <div class="artifact-panel">
-            <div class="artifact-header">
-              <span>PIPELINE SPECIFICATION</span>
-              <span class="artifact-status">DETERMINISTIC GROUNDING</span>
-            </div>
+        <p class="limits" id="limits">Loading runtime constraints…</p>
 
-            <div class="pipeline-flow">
-              <div class="flow-step">
-                <span class="step-num">01</span>
-                <div class="step-content">
-                  <div class="step-title">Ingest & Boundary Alignment</div>
-                  <div class="step-desc">FFmpeg 16 kHz mono normalization; Groq Whisper large-v3 word timestamps or .srt/.vtt cue indexing into segments S0..Sn.</div>
-                </div>
-              </div>
-              <div class="flow-step">
-                <span class="step-num">02</span>
-                <div class="step-content">
-                  <div class="step-title">Multi-Provider Inference Chain</div>
-                  <div class="step-desc">Gemini 1.5 Flash / Groq (Llama 3.3 70B) execution with automatic rate-limit cooldown, JSON schema repair, and provider fallback.</div>
-                </div>
-              </div>
-              <div class="flow-step">
-                <span class="step-num">03</span>
-                <div class="step-content">
-                  <div class="step-title">Deterministic Grounding Engine</div>
-                  <div class="step-desc">Strict n-gram substring verification. Uncited claims and unsupported quiz evidence are automatically purged.</div>
-                </div>
-              </div>
-            </div>
+        <div class="actions">
+          <button id="build" class="primary" type="button">Process episode</button>
+          <div class="mp" id="model-input" data-align="left"></div>
+        </div>
+        <p class="hint" id="model-hint">Select inference model for extraction, or run side-by-side benchmark comparison across Gemini and Groq after processing.</p>
+        <p id="input-error" class="error" role="alert" hidden></p>
 
-            <div class="artifact-header sub">
-              <span>SCHEMA CONTRACT (RFC 8259)</span>
-              <span>JSON</span>
-            </div>
-
-            <pre class="schema-preview"><code>{
-  <span class="key">"overview"</span>: {
-    <span class="key">"title"</span>: <span class="str">"Memory & Forgetting Curves"</span>,
-    <span class="key">"takeaways"</span>: [
-      { <span class="key">"text"</span>: <span class="str">"Decay rate slows with spaced recall."</span>, <span class="key">"evidence"</span>: [<span class="num">12</span>, <span class="num">14</span>] }
-    ]
-  },
-  <span class="key">"chapters"</span>: [
-    { <span class="key">"title"</span>: <span class="str">"Ebbinghaus Experiment Protocol"</span>, <span class="key">"start_time"</span>: <span class="num">184.2</span>, <span class="key">"segment"</span>: <span class="num">12</span> }
-  ],
-  <span class="key">"quiz"</span>: [
-    { <span class="key">"question"</span>: <span class="str">"What interval produces peak recall?"</span>, <span class="key">"evidence_quote"</span>: <span class="str">"..."</span>, <span class="key">"segment"</span>: <span class="num">24</span> }
-  ]
-}</code></pre>
-
-            <div class="specs-grid">
-              <div class="spec-cell">
-                <span class="spec-label">Payload limit</span>
-                <span class="spec-val">60 MB audio / 2 MB text</span>
-              </div>
-              <div class="spec-cell">
-                <span class="spec-label">Audio codecs</span>
-                <span class="spec-val">MP3, M4A, WAV, FLAC, OGG, AAC</span>
-              </div>
-              <div class="spec-cell">
-                <span class="spec-label">Verification</span>
-                <span class="spec-val">100% strict substring match</span>
-              </div>
-              <div class="spec-cell">
-                <span class="spec-label">Persistence</span>
-                <span class="spec-val">Zero server-side retention</span>
-              </div>
-            </div>
-          </div>
-        </aside>
+        <div class="privacy">
+          <strong>Data handling:</strong> Audio buffers and transcript payloads are transmitted directly to model inference endpoints (Google Gemini, Groq) via TLS. Audio streams are buffered in temporary memory and purged immediately upon transcription completion. No user inputs are persisted server-side.
+        </div>
       </div>
     </section>
 
@@ -223,6 +153,6 @@
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="/app.js?v=2.2" defer></script>
+  <script src="/app.js?v=2.3" defer></script>
 </body>
 </html>

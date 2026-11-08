@@ -721,7 +721,13 @@ function generateSegments(count, hasTimes, durationSec = 660) {
 
   // 1. Initial Hero view
   await renderState({ view: 'input', inputTab: 'text' });
-  await snapDemoFrame(6); // hold 1.2s
+  await snapDemoFrame(5);
+
+  // 1b. Navigate to Specification page and back
+  await page.goto('http://127.0.0.1:8000/specification', { waitUntil: 'networkidle0' });
+  await snapDemoFrame(6);
+  await page.goto('http://127.0.0.1:8000/', { waitUntil: 'networkidle0' });
+  await snapDemoFrame(3);
 
   // 2. Tab to File
   await renderState({ view: 'input', inputTab: 'file' });
