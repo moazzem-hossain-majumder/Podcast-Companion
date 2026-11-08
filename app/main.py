@@ -108,6 +108,8 @@ def create_app(settings: Optional[Settings] = None, llm: Optional[LLMClient] = N
             response.headers["Cache-Control"] = "no-store"
             log.info("rid=%s %s %s -> %s %.0fms", rid, request.method, request.url.path, response.status_code,
                      (time.perf_counter() - started) * 1000)
+        else:
+            response.headers["Cache-Control"] = "no-cache, must-revalidate"
         return response
 
     # ------------------------------------------------------------ errors

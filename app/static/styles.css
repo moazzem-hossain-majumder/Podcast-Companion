@@ -1,4 +1,27 @@
 :root {
+  --paper: #09090b;
+  --surface: #121215;
+  --surface-subtle: #18181b;
+  --ink: #fafafa;
+  --muted: #a1a1aa;
+  --line: #27272a;
+  --line-subtle: #18181b;
+  --teal: #14b8a6;
+  --teal-deep: #2dd4bf;
+  --teal-soft: #042f2e;
+  --teal-border: #134e4a;
+  --mark: #713f12;
+  --ok: #22c55e;
+  --ok-soft: #052e16;
+  --bad: #ef4444;
+  --bad-soft: #450a0a;
+  --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --serif: "Source Serif 4", Georgia, Cambria, "Times New Roman", serif;
+  --radius: 6px;
+  --radius-sm: 4px;
+}
+:root[data-theme="light"], html[data-theme="light"] {
   --paper: #fafafa;
   --surface: #ffffff;
   --surface-subtle: #f4f4f5;
@@ -15,31 +38,6 @@
   --ok-soft: #f0fdf4;
   --bad: #b91c1c;
   --bad-soft: #fef2f2;
-  --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  --serif: "Source Serif 4", Georgia, Cambria, "Times New Roman", serif;
-  --radius: 6px;
-  --radius-sm: 4px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #09090b;
-    --surface: #121215;
-    --surface-subtle: #18181b;
-    --ink: #fafafa;
-    --muted: #a1a1aa;
-    --line: #27272a;
-    --line-subtle: #18181b;
-    --teal: #14b8a6;
-    --teal-deep: #2dd4bf;
-    --teal-soft: #042f2e;
-    --teal-border: #134e4a;
-    --mark: #713f12;
-    --ok: #22c55e;
-    --ok-soft: #052e16;
-    --bad: #ef4444;
-    --bad-soft: #450a0a;
-  }
 }
 :root[data-theme="dark"], html[data-theme="dark"], body.dark {
   --paper: #09090b;

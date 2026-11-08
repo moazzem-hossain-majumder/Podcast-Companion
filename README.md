@@ -9,7 +9,7 @@ Turn a podcast transcript or recording into an interactive companion: a structur
 **Live app:** [https://podcast-companion.onrender.com](https://podcast-companion.onrender.com) &nbsp;|&nbsp; **Interactive Demo:** [docs/demo.gif](docs/demo.gif) &nbsp;|&nbsp; **Research Paper:** [RESEARCH.pdf](RESEARCH.pdf) &nbsp;|&nbsp; AI Engineering Project.
 
 <p align="center">
-  <img src="docs/demo.gif" alt="Podcast Companion Interactive Walkthrough" width="100%">
+  <img src="https://raw.githubusercontent.com/moazzem-hossain-majumder/Podcast-Companion/main/docs/demo.gif" alt="Podcast Companion Interactive Walkthrough" width="100%">
 </p>
 
 ## What it does

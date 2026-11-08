@@ -948,7 +948,7 @@
   function wireTheme() {
     const btn = $('#theme-toggle');
     if (!btn) return;
-    const getSaved = () => localStorage.getItem('pc_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const getSaved = () => localStorage.getItem('pc_theme') || 'dark';
     const apply = (theme) => {
       document.documentElement.setAttribute('data-theme', theme);
       clear(btn);
@@ -986,6 +986,19 @@
   }
 
   // ------------------------------------------------------------------ go
+  window.__app = {
+    state,
+    renderAll,
+    renderOverview,
+    renderChapters,
+    renderQuiz,
+    renderAsk,
+    renderCompare,
+    renderTranscript,
+    showInputError,
+    hideInputError,
+    toast,
+  };
   wireTheme();
   wirePickers();
   wireInput();
